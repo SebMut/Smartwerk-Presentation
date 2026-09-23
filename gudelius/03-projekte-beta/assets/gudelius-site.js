@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const equipmentTitle = document.getElementById('equipmentModalTitle');
   const equipmentKicker = document.getElementById('equipmentModalKicker');
   const equipmentLead = document.getElementById('equipmentModalLead');
-  const equipmentList = document.getElementById('equipmentModalList');
+  const equipmentSummary = document.getElementById('equipmentModalSummary');
   const equipmentGallery = document.getElementById('equipmentModalGallery');
 
   const equipmentData = {
@@ -61,49 +61,39 @@ document.addEventListener('DOMContentLoaded', () => {
       kicker: 'Außendienst',
       title: 'Präzise Messtechnik vor Ort.',
       lead: 'Für Absteckung, Kontrolle, Bestandsaufnahme und klassische Vermessungsaufgaben stehen unterschiedliche Messsysteme zur Verfügung.',
-      items: [
-        ['Trimble SX12', 'Totalstation & Scanning'],
-        ['Trimble S6', 'Robotik-Totalstation'],
-        ['Trimble R2 GNSS', 'Satellitenpositionierung'],
-        ['Trimble DINI 07', 'Digitalnivellement']
-      ],
-      images: [
-        ['assets/dummy-aussendienst-01.svg', 'Platzhalterbild Außendienst'],
-        ['assets/dummy-aussendienst-02.svg', 'Platzhalterbild Baustelleneinsatz']
+      summary: 'Jedes Gerät erhält später sein eigenes Originalfoto. Hier siehst du bereits die Wirkung mit vier unterschiedlichen Platzhalterbildern.',
+      devices: [
+        { name:'Trimble SX12', detail:'Totalstation & Scanning', image:'assets/equipment-trimble-sx12.svg' },
+        { name:'Trimble S6', detail:'Robotik-Totalstation', image:'assets/equipment-trimble-s6.svg' },
+        { name:'Trimble R2 GNSS', detail:'Satellitenpositionierung', image:'assets/equipment-trimble-r2.svg' },
+        { name:'Trimble DINI 07', detail:'Digitalnivellement', image:'assets/equipment-trimble-dini07.svg' }
       ]
     },
     digital: {
       kicker: '3D & Drohne',
       title: 'Digitale Erfassung aus Boden und Luft.',
       lead: '3D-Laserscanning und drohnengestützte Aufnahme ergänzen die klassische Vermessung bei komplexen Beständen und größeren Flächen.',
-      items: [
-        ['Trimble TX8', '3D-Laserscanner'],
-        ['RTK-Drohne', 'Luftbild & Vermessung'],
-        ['Infrarotkamera', 'Erweiterte Bildaufnahme'],
-        ['Photogrammetrie', 'Digitale Auswertung']
-      ],
-      images: [
-        ['assets/dummy-3d-01.svg', 'Platzhalterbild 3D-Laserscanning'],
-        ['assets/dummy-3d-02.svg', 'Platzhalterbild Drohnenvermessung']
+      summary: 'Die unterschiedlichen Bildwelten zeigen später Scanner, Drohne, Kamera und Auswertung jeweils als eigenes Motiv.',
+      devices: [
+        { name:'Trimble TX8', detail:'3D-Laserscanner', image:'assets/equipment-trimble-tx8.svg' },
+        { name:'RTK-Drohne', detail:'Luftbild & Vermessung', image:'assets/equipment-rtk-drohne.svg' },
+        { name:'Infrarotkamera', detail:'Thermische Bildaufnahme', image:'assets/equipment-infrarotkamera.svg' },
+        { name:'Photogrammetrie', detail:'Digitale Bildauswertung', image:'assets/equipment-photogrammetrie.svg' }
       ]
     },
     software: {
       kicker: 'Programme & mobil',
       title: 'Auswertung dort, wo die Daten gebraucht werden.',
       lead: 'Messdaten werden mit passenden CAD-, Punktwolken- und Photogrammetrie-Werkzeugen ausgewertet und für die weitere Projektbearbeitung aufbereitet.',
-      items: [
-        ['BricsCAD', 'CAD-Bearbeitung'],
-        ['BBSOFT', 'Vermessung & Auswertung'],
-        ['Trimble RealWorks', 'Punktwolken'],
-        ['Agisoft Metashape', 'Photogrammetrie']
-      ],
-      images: [
-        ['assets/dummy-software-01.svg', 'Platzhalterbild Auswertung'],
-        ['assets/dummy-software-02.svg', 'Platzhalterbild mobiler Arbeitsplatz']
+      summary: 'Auch Software und mobiler Workflow bekommen getrennte Bildmotive, damit die Karten nicht wie eine wiederholte Bildserie wirken.',
+      devices: [
+        { name:'BricsCAD', detail:'CAD-Bearbeitung', image:'assets/equipment-bricscad.svg' },
+        { name:'BBSOFT', detail:'Vermessung & Auswertung', image:'assets/equipment-bbsoft.svg' },
+        { name:'Trimble RealWorks', detail:'Punktwolken-Auswertung', image:'assets/equipment-realworks.svg' },
+        { name:'Agisoft Metashape', detail:'Photogrammetrie', image:'assets/equipment-metashape.svg' }
       ]
     }
   };
-
   function openEquipmentModal(key) {
     if (!equipmentModal || !equipmentData[key]) return;
     const data = equipmentData[key];
@@ -111,11 +101,17 @@ document.addEventListener('DOMContentLoaded', () => {
     equipmentKicker.textContent = data.kicker;
     equipmentTitle.textContent = data.title;
     equipmentLead.textContent = data.lead;
-    equipmentList.innerHTML = data.items
-      .map(([name, detail]) => `<li><strong>${name}</strong><span>${detail}</span></li>`)
-      .join('');
-    equipmentGallery.innerHTML = data.images
-      .map(([src, alt]) => `<img src="${src}" alt="${alt}">`)
+    equipmentSummary.textContent = data.summary;
+    equipmentGallery.innerHTML = data.devices
+      .map((device) => `
+        <article class="equipment-device-card">
+          <img src="${device.image}" alt="${device.name} Platzhalterbild">
+          <div class="equipment-device-copy">
+            <strong>${device.name}</strong>
+            <span>${device.detail}</span>
+          </div>
+        </article>
+      `)
       .join('');
 
     equipmentModal.classList.add('open');
