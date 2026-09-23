@@ -5,7 +5,7 @@ on:
     paths:
       - ".github/workflows/gudelius-kanban-labels.yml"
   issues:
-    types: [opened]
+    types: [opened, edited, closed, reopened, labeled]
   workflow_dispatch:
 
 permissions:
@@ -16,11 +16,11 @@ jobs:
   labels:
     runs-on: ubuntu-latest
     steps:
-      - name: Ensure Kanban labels and apply issue metadata
+      - name: Maintain Gudelius Kanban labels
         uses: actions/github-script@v7
         with:
           script: |
-            const labels = [
+            const definitions = [
               { name: "status: offen", color: "D4C44D", description: "Noch nicht begonnen" },
               { name: "status: in-arbeit", color: "4F8FB0", description: "Aktiv in Bearbeitung" },
               { name: "status: wartet", color: "D7A64A", description: "Wartet auf Zuarbeit oder Abhängigkeit" },
@@ -30,7 +30,7 @@ jobs:
               { name: "gudelius-beta", color: "E5C533", description: "Gudelius Version 3 Beta" }
             ];
 
-            for (const label of labels) {
+            for (const label of definitions) {
               try {
                 await github.rest.issues.getLabel({
                   owner: context.repo.owner,
@@ -52,18 +52,89 @@ jobs:
               }
             }
 
-            if (context.eventName === "issues" && context.payload.issue) {
-              const body = context.payload.issue.body || "";
-              const issueNumber = context.payload.issue.number;
-              const add = ["gudelius-beta"];
+            if (context.eventName !== "issues" || !context.payload.issue) return;
 
-              if (/Status:\s*Wartet/i.test(body)) add.push("status: wartet");
-              else if (/Status:\s*In Arbeit/i.test(body)) add.push("status: in-arbeit");
-              else if (/Status:\s*Erledigt/i.test(body)) add.push("status: erledigt");
-              else add.push("status: offen");
+            const issue = context.payload.issue;
+            const issueNumber = issue.number;
+            const body = issue.body || "";
+            const statusLabels = ["status: offen", "status: in-arbeit", "status: wartet", "status: erledigt"];
+            const ownerLabels = ["verantwortlich: basti", "verantwortlich: jost"];
 
-              if (/Verantwortlich:\s*Jost/i.test(body)) add.push("verantwortlich: jost");
-              if (/Verantwortlich:\s*Basti/i.test(body)) add.push("verantwortlich: basti");
+            const removeLabels = async (labels) => {
+              for (const name of labels) {
+                try {
+                  await github.rest.issues.removeLabel({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issueNumber,
+                    name
+                  });
+                } catch (error) {
+                  if (error.status !== 404) throw error;
+                }
+              }
+            };
+
+            if (context.payload.action === "labeled" && context.payload.label?.name?.startsWith("status: ")) {
+              const chosen = context.payload.label.name;
+              await removeLabels(statusLabels.filter(x => x !== chosen));
+
+              if (chosen === "status: erledigt" && issue.state !== "closed") {
+                await github.rest.issues.update({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issueNumber,
+                  state: "closed",
+                  state_reason: "completed"
+                });
+              } else if (chosen !== "status: erledigt" && issue.state === "closed") {
+                await github.rest.issues.update({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issueNumber,
+                  state: "open"
+                });
+              }
+              return;
+            }
+
+            if (context.payload.action === "closed") {
+              await removeLabels(statusLabels.filter(x => x !== "status: erledigt"));
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                labels: ["gudelius-beta", "status: erledigt"]
+              });
+              return;
+            }
+
+            if (context.payload.action === "reopened") {
+              await removeLabels(statusLabels.filter(x => x !== "status: offen"));
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                labels: ["gudelius-beta", "status: offen"]
+              });
+              return;
+            }
+
+            if (context.payload.action === "opened" || context.payload.action === "edited") {
+              let status = "status: offen";
+              if (/Status:\s*Wartet/i.test(body)) status = "status: wartet";
+              else if (/Status:\s*In Arbeit/i.test(body)) status = "status: in-arbeit";
+              else if (/Status:\s*Erledigt/i.test(body)) status = "status: erledigt";
+
+              let owner = null;
+              if (/Verantwortlich:\s*Jost/i.test(body)) owner = "verantwortlich: jost";
+              else if (/Verantwortlich:\s*Basti/i.test(body)) owner = "verantwortlich: basti";
+
+              await removeLabels(statusLabels.filter(x => x !== status));
+              await removeLabels(ownerLabels.filter(x => x !== owner));
+
+              const add = ["gudelius-beta", status];
+              if (owner) add.push(owner);
 
               await github.rest.issues.addLabels({
                 owner: context.repo.owner,
@@ -71,4 +142,14 @@ jobs:
                 issue_number: issueNumber,
                 labels: add
               });
+
+              if (status === "status: erledigt" && issue.state !== "closed") {
+                await github.rest.issues.update({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issueNumber,
+                  state: "closed",
+                  state_reason: "completed"
+                });
+              }
             }
