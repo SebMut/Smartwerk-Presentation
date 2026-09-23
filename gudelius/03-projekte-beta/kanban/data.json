@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T10:02:09.562Z",
+  "generated_at": "2026-09-23T10:05:35.278Z",
   "source": "GitHub Issues",
   "issues": [
     {
@@ -29,7 +29,7 @@
     {
       "number": 2,
       "title": "[Gudelius Beta] Leistungs-Unterseiten erstellen",
-      "body": "## Aufgabe\nUnterseiten für Ingenieurvermessung, GIS & Bauvermessung, 3D-Laserscanning und Drohnenvermessung erstellen.\n\n**Status:** Offen  \n**Verantwortlich:** Basti  \n**Ziel:** 03.10.2026  \n**Bereich:** Unterseiten\n\nVerknüpft mit: Version 3 Beta",
+      "body": "## Aufgabe\nUnterseiten für Ingenieurvermessung, GIS & Bauvermessung, 3D-Laserscanning und Drohnenvermessung erstellen.\n\n**Status:** Erledigt  \n**Verantwortlich:** Basti  \n**Ziel:** 03.10.2026  \n**Bereich:** Unterseiten\n\n## Umsetzung\n\nDie vier Leistungs-Unterseiten wurden in der Beta-Version umgesetzt und auf der Startseite verlinkt:\n\n- Ingenieurvermessung: https://sebmut.github.io/Smartwerk-Presentation/gudelius/03-projekte-beta/leistungen/ingenieurvermessung/\n- GIS & Bauvermessung: https://sebmut.github.io/Smartwerk-Presentation/gudelius/03-projekte-beta/leistungen/gis-bauvermessung/\n- 3D-Laserscanning: https://sebmut.github.io/Smartwerk-Presentation/gudelius/03-projekte-beta/leistungen/3d-laserscanning/\n- Drohnenvermessung: https://sebmut.github.io/Smartwerk-Presentation/gudelius/03-projekte-beta/leistungen/drohnenvermessung/\n\nDie Leistungs-Kacheln der Beta-Startseite führen jetzt jeweils über „Mehr erfahren“ auf die passende Unterseite.\n\nVerknüpft mit: Version 3 Beta",
       "state": "closed",
       "html_url": "https://github.com/SebMut/Smartwerk-Presentation/issues/2",
       "labels": [
