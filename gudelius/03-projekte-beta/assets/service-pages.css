@@ -229,3 +229,70 @@
   .detail-grid,.output-grid,.process-row,.service-image-strip{grid-template-columns:1fr}
   .service-image-strip img,.service-image-strip img:last-child{height:260px}
 }
+
+
+/* Vollständiger Leistungsumfang nach aktueller Gudelius-Website */
+.scope-section{
+  padding:84px 0;
+  background:#f4f2ec;
+  border-top:1px solid #e5e1d7;
+  border-bottom:1px solid #e5e1d7;
+}
+.scope-head{
+  display:grid;
+  grid-template-columns:.8fr 1.2fr;
+  gap:48px;
+  align-items:end;
+  margin-bottom:34px;
+}
+.scope-head p{
+  margin:0;
+  color:var(--muted);
+  max-width:720px;
+}
+.scope-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+.scope-item{
+  display:grid;
+  grid-template-columns:42px 1fr;
+  gap:14px;
+  align-items:start;
+  padding:17px 18px;
+  background:#fff;
+  border:1px solid #dedfd9;
+  border-radius:14px;
+}
+.scope-item .scope-no{
+  display:grid;
+  place-items:center;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:#172026;
+  color:var(--accent);
+  font-size:.68rem;
+  font-weight:900;
+  letter-spacing:.05em;
+}
+.scope-item strong{
+  display:block;
+  padding-top:5px;
+  font-size:.92rem;
+  line-height:1.4;
+  color:var(--ink);
+}
+.scope-note{
+  margin-top:18px;
+  color:#7c878b;
+  font-size:.75rem;
+}
+@media(max-width:900px){
+  .scope-head{grid-template-columns:1fr;gap:10px}
+}
+@media(max-width:650px){
+  .scope-grid{grid-template-columns:1fr}
+  .scope-item{grid-template-columns:36px 1fr;padding:15px}
+}
