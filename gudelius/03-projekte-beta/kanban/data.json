@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T12:43:01.232Z",
+  "generated_at": "2026-09-23T12:43:16.853Z",
   "source": "GitHub Issues",
   "issues": [
     {
@@ -173,14 +173,14 @@
     {
       "number": 8,
       "title": "[Gudelius Beta] Impressumsseite erstellen",
-      "body": "## Aufgabe\nAus den von Jost gelieferten Daten wird eine eigene Impressums-Unterseite erstellt und verlinkt.\n\n**Status:** Offen  \n**Verantwortlich:** Basti  \n**Bereich:** Impressum  \n**Abhängigkeit:** Erst nach „Richtige Impressumsdaten schicken“.\n\nVerknüpft mit: Version 3 Beta",
-      "state": "open",
+      "body": "## Aufgabe\nAus den von Jost gelieferten Daten wird eine eigene Impressums-Unterseite erstellt und verlinkt.\n\n**Status:** Erledigt  \n**Verantwortlich:** Basti  \n**Bereich:** Impressum\n\n## Umsetzung\n\nDie Impressums-Unterseite wurde vollständig mit dem Originaltext umgesetzt und aus der Beta-Startseite sowie den Leistungs-Unterseiten verlinkt.\n\nBeta-Impressum:\nhttps://sebmut.github.io/Smartwerk-Presentation/gudelius/03-projekte-beta/impressum/\n\nVerknüpft mit: Version 3 Beta",
+      "state": "closed",
       "html_url": "https://github.com/SebMut/Smartwerk-Presentation/issues/8",
       "labels": [
         {
-          "name": "status: offen",
-          "color": "D4C44D",
-          "description": "Noch nicht begonnen"
+          "name": "status: erledigt",
+          "color": "5A9A6A",
+          "description": "Abgeschlossen"
         },
         {
           "name": "verantwortlich: basti",
