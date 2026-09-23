@@ -162,7 +162,7 @@
   const OWNER = 'SebMut';
   const REPO = 'Smartwerk-Presentation';
   const API_BASE = 'https://api.github.com/repos/' + OWNER + '/' + REPO;
-  const ISSUES_API = API_BASE + '/issues?state=all&labels=gudelius-beta&per_page=100&sort=created&direction=asc';
+  const DATA_URL = './data.json';
   const TOKEN_KEY = 'gudelius-kanban-github-token';
   const STATUS_LABELS = ['status: offen','status: in-arbeit','status: wartet','status: erledigt'];
   const STATUS_TO_LABEL = {
@@ -340,34 +340,39 @@
     });
   }
 
+  function renderIssues(issues) {
+    issuesByNumber = new Map(issues.map(i => [String(i.number), i]));
+    emptyColumns();
+
+    const counts = {open:0,doing:0,waiting:0,done:0};
+    issues.forEach(issue => {
+      const [status, node] = card(issue);
+      document.querySelector('.column[data-status="' + status + '"] .cards').appendChild(node);
+      counts[status]++;
+    });
+
+    columns.forEach(c => c.querySelector('.count').textContent = counts[c.dataset.status]);
+    addEmptyMessages();
+  }
+
   async function load() {
     refresh.disabled = true;
-    syncText.textContent = 'GitHub wird geladen …';
+    syncText.textContent = 'Kanban-Daten werden geladen …';
     loading.style.display = 'block';
     loading.classList.remove('error');
     try {
-      const res = await fetch(ISSUES_API, {headers: apiHeaders()});
-      if (!res.ok) throw new Error('GitHub API: ' + res.status);
-      const issues = (await res.json()).filter(i => !i.pull_request);
-      issuesByNumber = new Map(issues.map(i => [String(i.number), i]));
-      emptyColumns();
-
-      const counts = {open:0,doing:0,waiting:0,done:0};
-      issues.forEach(issue => {
-        const [status, node] = card(issue);
-        document.querySelector('.column[data-status="' + status + '"] .cards').appendChild(node);
-        counts[status]++;
-      });
-
-      columns.forEach(c => c.querySelector('.count').textContent = counts[c.dataset.status]);
-      addEmptyMessages();
+      const res = await fetch(DATA_URL + '?t=' + Date.now(), {cache:'no-store'});
+      if (!res.ok) throw new Error('data.json: ' + res.status);
+      const payload = await res.json();
+      const issues = Array.isArray(payload) ? payload : (payload.issues || []);
+      renderIssues(issues);
       loading.style.display = 'none';
-      const now = new Date();
-      syncText.textContent = 'Aktuell · ' + now.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'});
+      const updated = payload.generated_at ? new Date(payload.generated_at) : new Date();
+      syncText.textContent = 'GitHub-Stand · ' + updated.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'});
     } catch (err) {
       loading.style.display = 'block';
       loading.classList.add('error');
-      loading.textContent = 'GitHub konnte nicht geladen werden. Bitte später erneut versuchen.';
+      loading.textContent = 'Kanban-Daten konnten nicht geladen werden. Bitte die Seite einmal neu laden.';
       syncText.textContent = 'Fehler beim Laden';
       console.error(err);
     } finally {
@@ -415,8 +420,10 @@
         throw new Error(data.message || ('GitHub API: ' + res.status));
       }
 
-      showToast('Status in GitHub gespeichert.');
-      await load();
+      const updatedIssue = await res.json();
+      issuesByNumber.set(String(issueNumber), updatedIssue);
+      renderIssues([...issuesByNumber.values()].sort((a,b) => a.number - b.number));
+      showToast('Status in GitHub gespeichert. Die gemeinsame Ansicht wird automatisch synchronisiert.');
     } finally {
       busy = false;
     }
@@ -504,7 +511,7 @@
   refresh.addEventListener('click', load);
   updateAuthButton();
   load();
-  setInterval(load, 120000);
+  setInterval(load, 60000);
 })();
 </script>
 </body>
