@@ -4,246 +4,54 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
-  <title>GudeliusVermessung – Kanban · Version 3 Beta</title>
+  <title>GudeliusVermessung – Kanban · GitHub synchronisiert</title>
   <style>
     :root{
-      --bg:#f4f5f2;
-      --paper:#ffffff;
-      --ink:#172027;
-      --muted:#6d777c;
-      --line:#dce1df;
-      --yellow:#e5c533;
-      --yellow-soft:#fff7cf;
-      --blue:#e9f1f5;
-      --green:#e9f5ee;
-      --orange:#fff0dc;
-      --shadow:0 14px 38px rgba(22,32,39,.08);
-      --radius:20px;
+      --bg:#f4f5f2;--paper:#fff;--ink:#172027;--muted:#6d777c;--line:#dce1df;
+      --yellow:#e5c533;--yellow-soft:#fff7cf;--blue:#eaf3f8;--orange:#fff1dd;--green:#eaf6ee;
+      --shadow:0 14px 38px rgba(22,32,39,.08);--radius:20px
     }
     *{box-sizing:border-box}
-    html{background:var(--bg)}
-    body{
-      margin:0;
-      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-      color:var(--ink);
-      background:var(--bg);
-    }
+    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg)}
     a{color:inherit;text-decoration:none}
+    button{font:inherit}
     .wrap{width:min(1500px,calc(100% - 36px));margin:auto}
-    header{
-      background:#fff;
-      border-bottom:1px solid var(--line);
-      position:sticky;
-      top:0;
-      z-index:20;
-    }
-    .header-inner{
-      min-height:76px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:24px;
-    }
+    header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+    .header-inner{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px}
     .title-wrap{display:flex;align-items:center;gap:14px}
-    .mark{
-      width:42px;height:42px;border-radius:12px;
-      background:var(--yellow);
-      display:grid;place-items:center;
-      font-weight:900;
-    }
-    h1{font-size:1.16rem;margin:0;letter-spacing:-.02em}
-    .sub{font-size:.78rem;color:var(--muted);margin-top:2px}
-    .header-actions{display:flex;gap:8px;align-items:center}
-    .btn{
-      display:inline-flex;align-items:center;justify-content:center;
-      padding:10px 14px;border-radius:999px;border:1px solid var(--line);
-      background:#fff;font-size:.8rem;font-weight:800;
-    }
-    .btn:hover{border-color:#b8c0bd}
-    .beta{
-      background:#172027;color:#fff;border-color:#172027;
-    }
+    .mark{width:42px;height:42px;border-radius:12px;background:var(--yellow);display:grid;place-items:center;font-weight:900}
+    h1{font-size:1.16rem;margin:0;letter-spacing:-.02em}.sub{font-size:.78rem;color:var(--muted);margin-top:2px}
+    .actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;font-size:.8rem;font-weight:800;cursor:pointer}
+    .btn:hover{border-color:#b8c0bd}.btn.primary{background:var(--yellow);border-color:#d2b328}.btn.dark{background:#172027;color:#fff;border-color:#172027}
     main{padding:34px 0 56px}
-    .intro{
-      display:flex;justify-content:space-between;align-items:end;gap:30px;
-      margin-bottom:26px;
-    }
-    .intro h2{
-      font-size:clamp(2rem,4vw,3.7rem);
-      line-height:.98;letter-spacing:-.055em;margin:0 0 12px;
-    }
-    .intro p{margin:0;color:var(--muted);max-width:760px;line-height:1.6}
-    .deadline{
-      background:var(--yellow-soft);
-      border:1px solid #edd66b;
-      border-radius:16px;
-      padding:14px 17px;
-      min-width:230px;
-    }
-    .deadline small{display:block;color:#7c6820;font-weight:800;text-transform:uppercase;letter-spacing:.1em}
-    .deadline strong{font-size:1.25rem;display:block;margin-top:4px}
-    .board{
-      display:grid;
-      grid-template-columns:repeat(4,minmax(260px,1fr));
-      gap:16px;
-      align-items:start;
-    }
-    .column{
-      background:#edf0ee;
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      padding:14px;
-      min-height:530px;
-    }
-    .column-head{
-      display:flex;justify-content:space-between;align-items:center;
-      padding:3px 3px 13px;
-    }
-    .column-head h3{font-size:.94rem;margin:0}
-    .count{
-      width:26px;height:26px;border-radius:50%;
-      display:grid;place-items:center;background:#fff;
-      border:1px solid var(--line);font-size:.72rem;font-weight:900;
-    }
-    .cards{display:grid;gap:11px}
-    .card{
-      background:var(--paper);
-      border:1px solid var(--line);
-      border-radius:16px;
-      padding:16px;
-      box-shadow:0 4px 16px rgba(22,32,39,.035);
-    }
-    .card:hover{box-shadow:var(--shadow)}
-    .card-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:12px}
-    .nr{
-      font-size:.68rem;font-weight:900;letter-spacing:.1em;color:#7a858a;
-      text-transform:uppercase;
-    }
-    .owner{
-      font-size:.67rem;font-weight:900;
-      padding:5px 8px;border-radius:999px;
-      white-space:nowrap;
-    }
-    .jost{background:var(--blue);color:#395665}
-    .basti{background:var(--green);color:#365b45}
-    .struktur{background:var(--orange);color:#745328}
-    .card h4{
-      margin:0 0 8px;
-      font-size:1rem;line-height:1.3;letter-spacing:-.018em;
-    }
-    .card p{font-size:.84rem;line-height:1.5;color:var(--muted);margin:0}
-    .meta{
-      display:flex;gap:7px;flex-wrap:wrap;margin-top:14px;
-      padding-top:12px;border-top:1px solid #edf0ef;
-    }
-    .chip{
-      font-size:.68rem;font-weight:800;padding:5px 8px;border-radius:8px;
-      background:#f4f6f5;color:#667177;
-    }
-    .chip.due{background:var(--yellow-soft);color:#76631c}
-    .dependency{
-      margin-top:10px;
-      padding:9px 10px;
-      border-radius:10px;
-      background:#f7f8f7;
-      font-size:.75rem;color:#667177;
-    }
-    .group-label{
-      font-size:.72rem;font-weight:900;color:#7b8589;
-      text-transform:uppercase;letter-spacing:.1em;
-      margin:6px 2px 0;
-    }
-    footer{padding:0 0 32px;color:#818b8f;font-size:.75rem}
-    @media(max-width:1100px){
-      .board{grid-template-columns:1fr 1fr}
-      .column{min-height:420px}
-    }
-    @media(max-width:700px){
-      .wrap{width:min(calc(100% - 22px),1500px)}
-      .header-inner{align-items:flex-start;padding:13px 0;flex-direction:column}
-      .header-actions{width:100%;overflow:auto}
-      .intro{display:block}
-      .deadline{margin-top:18px;display:inline-block}
-      .board{grid-template-columns:1fr}
-      .column{min-height:auto}
-    }
-  
-    .board{grid-template-columns:repeat(4,minmax(260px,1fr))}
-    .column{transition:.2s ease}
-    .column.drag-over{background:#e6eadf;border-color:#c3ae35;box-shadow:inset 0 0 0 2px rgba(229,197,51,.28)}
-    .cards{min-height:120px}
-    .card{cursor:grab;transition:opacity .18s,transform .18s,box-shadow .18s}
-    .card:active{cursor:grabbing}
-    .card.dragging{opacity:.38;transform:rotate(1deg) scale(.98)}
-    .card[data-state="done"]{opacity:.7;background:#f3f8f4}
-    .card[data-state="done"] h4{text-decoration:line-through;color:#718078}
-    .card[data-state="doing"]{border-left:4px solid #4f8fb0}
-    .card[data-state="waiting"]{border-left:4px solid #d7a64a}
-    .card-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:13px}
-    .status-btn{
-      appearance:none;border:1px solid var(--line);background:#fff;color:#566267;
-      border-radius:9px;padding:7px 9px;font-size:.68rem;font-weight:850;
-      cursor:pointer;transition:.15s ease;
-    }
-    .status-btn:hover{border-color:#aeb9b5;transform:translateY(-1px)}
-    .status-btn.doing{background:#edf6fb;color:#37677e;border-color:#c9e0eb}
-    .status-btn.waiting{background:#fff4e1;color:#79571d;border-color:#efd9aa}
-    .status-btn.done{background:#eaf6ee;color:#356146;border-color:#c8e1d0}
-    .status-btn.active{box-shadow:inset 0 0 0 2px currentColor}
-    .drag-hint{font-size:.72rem;color:#8a9498;margin:5px 3px 0}
-    .reset-btn{cursor:pointer}
-    .progress-wrap{
-      display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);
-      padding:9px 12px;border-radius:999px;font-size:.75rem;font-weight:800;color:#657176
-    }
-    .progress-bar{width:90px;height:7px;border-radius:999px;background:#e7ebe9;overflow:hidden}
-    .progress-bar span{display:block;height:100%;width:0;background:var(--yellow);transition:.25s}
-    @media(max-width:700px){
-      .card{cursor:default}
-      .drag-hint{display:none}
-      .status-btn{padding:8px 10px}
-    }
-    .create-btn{background:var(--yellow);border-color:#d1b124;color:#24271f;cursor:pointer}
-    .create-btn:hover{background:#efd451;border-color:#c9aa20}
-    .modal-backdrop{
-      position:fixed;inset:0;z-index:100;background:rgba(13,20,24,.52);
-      backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;padding:20px
-    }
-    .modal-backdrop.open{display:flex}
-    .modal{
-      width:min(620px,100%);max-height:min(760px,calc(100vh - 40px));overflow:auto;
-      background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:0 28px 90px rgba(15,25,30,.24)
-    }
-    .modal-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;padding:24px 26px 18px;border-bottom:1px solid var(--line)}
-    .modal-head h3{margin:0 0 4px;font-size:1.3rem}
-    .modal-head p{margin:0;color:var(--muted);font-size:.82rem}
-    .modal-close{border:0;background:#f0f2f1;width:36px;height:36px;border-radius:50%;font-size:1.15rem;cursor:pointer}
-    .ticket-form{padding:22px 26px 26px}
-    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
-    .form-field{display:grid;gap:7px;margin-bottom:15px}
-    .form-field.full{grid-column:1/-1}
-    .form-field label{font-size:.76rem;font-weight:850;color:#536067}
-    .form-field input,.form-field textarea,.form-field select{
-      width:100%;border:1px solid #cfd7d4;border-radius:11px;padding:12px 13px;background:#fbfcfb;
-      color:var(--ink);outline:none;font:inherit
-    }
-    .form-field textarea{min-height:105px;resize:vertical}
-    .form-field input:focus,.form-field textarea:focus,.form-field select:focus{
-      border-color:#c7a923;box-shadow:0 0 0 3px rgba(229,197,51,.17)
-    }
-    .modal-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:5px}
-    .ticket-create{border:0;background:var(--yellow);color:#1d211d;padding:11px 16px;border-radius:999px;font-weight:900;cursor:pointer}
-    .ticket-cancel{border:1px solid var(--line);background:#fff;color:#556268;padding:11px 16px;border-radius:999px;font-weight:800;cursor:pointer}
-    .delete-ticket{margin-left:auto;border-color:#f0cece!important;color:#9b4545!important;background:#fff5f5!important}
-    .custom-flag{background:#eeeaf9;color:#605080}
-    @media(max-width:700px){
-      .form-grid{grid-template-columns:1fr}
-      .modal{border-radius:18px}
-      .ticket-form{padding:18px}
-      .modal-head{padding:20px 18px 15px}
-      .progress-wrap{display:none}
-    }
-
+    .intro{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:24px}
+    .intro h2{font-size:clamp(2rem,4vw,3.7rem);line-height:.98;letter-spacing:-.055em;margin:0 0 12px}
+    .intro p{margin:0;color:var(--muted);max-width:780px;line-height:1.6}
+    .syncbox{background:#fff;border:1px solid var(--line);border-radius:16px;padding:13px 16px;min-width:245px}
+    .syncbox small{display:block;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.09em}
+    .syncbox strong{display:flex;align-items:center;gap:8px;margin-top:4px}.syncdot{width:8px;height:8px;border-radius:50%;background:#5a9a6a}
+    .board{display:grid;grid-template-columns:repeat(4,minmax(260px,1fr));gap:16px;align-items:start}
+    .column{background:#edf0ee;border:1px solid var(--line);border-radius:var(--radius);padding:14px;min-height:490px}
+    .column-head{display:flex;justify-content:space-between;align-items:center;padding:3px 3px 13px}
+    .column-head h3{font-size:.94rem;margin:0}.count{width:27px;height:27px;border-radius:50%;display:grid;place-items:center;background:#fff;border:1px solid var(--line);font-size:.72rem;font-weight:900}
+    .cards{display:grid;gap:11px}.empty{padding:24px 12px;text-align:center;color:#98a1a4;font-size:.78rem;border:1px dashed #ccd3d0;border-radius:14px}
+    .card{display:block;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 4px 16px rgba(22,32,39,.035);transition:.18s}
+    .card:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:#c5ceca}
+    .card.open{border-left:4px solid #c8b03a}.card.doing{border-left:4px solid #4f8fb0}.card.waiting{border-left:4px solid #d7a64a}.card.done{border-left:4px solid #5a9a6a;opacity:.78}
+    .card.done h4{text-decoration:line-through}
+    .card-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:11px}
+    .issue{font-size:.68rem;font-weight:900;letter-spacing:.08em;color:#7a858a}.owner{font-size:.67rem;font-weight:900;padding:5px 8px;border-radius:999px;white-space:nowrap}
+    .owner.basti{background:#e9f5ee;color:#365b45}.owner.jost{background:#e9f1f5;color:#395665}.owner.none{background:#f0f1ef;color:#737d80}
+    .card h4{margin:0 0 8px;font-size:1rem;line-height:1.3;letter-spacing:-.018em}.card p{font-size:.83rem;line-height:1.5;color:var(--muted);margin:0}
+    .meta{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px;padding-top:12px;border-top:1px solid #edf0ef}
+    .chip{font-size:.68rem;font-weight:800;padding:5px 8px;border-radius:8px;background:#f4f6f5;color:#667177}.chip.due{background:var(--yellow-soft);color:#76631c}
+    .github-link{display:inline-flex;margin-top:13px;font-size:.72rem;font-weight:850;color:#4b5d65}
+    .loading{grid-column:1/-1;background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px;text-align:center;color:var(--muted)}
+    .error{background:#fff0f0;color:#8a4141;border-color:#e8c4c4}
+    footer{padding:0 0 30px;color:#818b8f;font-size:.75rem}
+    @media(max-width:1100px){.board{grid-template-columns:1fr 1fr}}
+    @media(max-width:700px){.wrap{width:min(calc(100% - 22px),1500px)}.header-inner{padding:13px 0;align-items:flex-start;flex-direction:column}.intro{display:block}.syncbox{margin-top:16px}.board{grid-template-columns:1fr}.column{min-height:160px}}
   </style>
 </head>
 <body>
@@ -253,15 +61,14 @@
       <div class="mark">G</div>
       <div>
         <h1>GudeliusVermessung · Kanban</h1>
-        <div class="sub">Version 3 Beta · interne Aufgabenübersicht</div>
+        <div class="sub">Version 3 Beta · zentral über GitHub Issues gespeichert</div>
       </div>
     </div>
-    <div class="header-actions">
-      <a class="btn beta" href="../index.html">← Beta-Website</a>
-      <div class="progress-wrap"><span id="progressText">0 / 8 erledigt</span><div class="progress-bar"><span id="progressBar"></span></div></div>
-      <button class="btn create-btn" id="openTicketModal" type="button">+ Ticket erstellen</button>
-      <button class="btn reset-btn" id="resetBoard" type="button">Zurücksetzen</button>
-      <a class="btn" href="https://github.com/SebMut/Smartwerk-Presentation/tree/main/gudelius/03-projekte-beta" target="_blank" rel="noopener">GitHub öffnen ↗</a>
+    <div class="actions">
+      <a class="btn dark" href="../index.html">← Beta-Website</a>
+      <a class="btn primary" id="newTicket" target="_blank" rel="noopener">+ Ticket erstellen</a>
+      <button class="btn" id="refresh" type="button">↻ Aktualisieren</button>
+      <a class="btn" href="https://github.com/SebMut/Smartwerk-Presentation/issues?q=is%3Aissue%20label%3A%22gudelius-beta%22" target="_blank" rel="noopener">GitHub Issues ↗</a>
     </div>
   </div>
 </header>
@@ -270,493 +77,159 @@
   <div class="wrap">
     <section class="intro">
       <div>
-        <h2>Was als Nächstes ansteht.</h2>
-        <p>Arbeitsstand für die Weiterentwicklung der Beta-Version. Aufgaben sind nach Verantwortlichkeit und Abhängigkeiten sortiert.</p>
+        <h2>Ein Stand. Auf jedem Gerät.</h2>
+        <p>Dieses Board liest den aktuellen Stand direkt aus GitHub. Status, Tickets und abgeschlossene Aufgaben sind damit browserübergreifend identisch. Zum Ändern eines Tickets einfach die jeweilige Kachel in GitHub öffnen und dort den Status-Label setzen bzw. das Issue schließen.</p>
       </div>
-      <div class="deadline">
-        <small>Nächster Fixpunkt</small>
-        <strong>03.10.2026</strong>
+      <div class="syncbox">
+        <small>Synchronisierung</small>
+        <strong><span class="syncdot"></span><span id="syncText">GitHub wird geladen …</span></strong>
       </div>
     </section>
 
-
-    <section class="board" id="kanbanBoard">
-      <div class="column" data-status="open">
-        <div class="column-head">
-          <h3>Offen</h3>
-          <span class="count">0</span>
-        </div>
-        <div class="cards" data-dropzone="open">
-          <article class="card" draggable="true" data-task-id="02" data-state="open">
-            <div class="card-top"><span class="nr">02</span><span class="owner basti">Basti</span></div>
-            <h4>Leistungs-Unterseiten erstellen</h4>
-            <p>Unterseiten für Ingenieurvermessung, GIS & Bauvermessung, 3D-Laserscanning und Drohnenvermessung erstellen.</p>
-            <div class="meta"><span class="chip due">Ziel: 03.10.2026</span><span class="chip">Unterseiten</span></div>
-            <div class="card-actions">
-              <button class="status-btn doing" data-action="doing" type="button">▶ In Arbeit</button>
-              <button class="status-btn waiting" data-action="waiting" type="button">⏸ Warten</button>
-              <button class="status-btn done" data-action="done" type="button">✓ Erledigt</button>
-            </div>
-          </article>
-
-          <article class="card" draggable="true" data-task-id="03" data-state="open">
-            <div class="card-top"><span class="nr">03</span><span class="owner struktur">Basti</span></div>
-            <h4>Leistungsfelder nach oben</h4>
-            <p>Den Bereich „Leistungsfelder“ auf der Startseite weiter nach oben verschieben, damit Leistungen früher sichtbar werden.</p>
-            <div class="meta"><span class="chip">Startseite</span><span class="chip">Priorität hoch</span></div>
-            <div class="card-actions">
-              <button class="status-btn doing" data-action="doing" type="button">▶ In Arbeit</button>
-              <button class="status-btn waiting" data-action="waiting" type="button">⏸ Warten</button>
-              <button class="status-btn done" data-action="done" type="button">✓ Erledigt</button>
-            </div>
-          </article>
-
-          <article class="card" draggable="true" data-task-id="04" data-state="open">
-            <div class="card-top"><span class="nr">04</span><span class="owner struktur">Basti</span></div>
-            <h4>„Arbeit, die man sehen kann.“ nach unten</h4>
-            <p>Den Projekt-/Bildbereich auf der Startseite weiter nach unten verschieben.</p>
-            <div class="meta"><span class="chip">Startseite</span><span class="chip">Reihenfolge</span></div>
-            <div class="card-actions">
-              <button class="status-btn doing" data-action="doing" type="button">▶ In Arbeit</button>
-              <button class="status-btn waiting" data-action="waiting" type="button">⏸ Warten</button>
-              <button class="status-btn done" data-action="done" type="button">✓ Erledigt</button>
-            </div>
-          </article>
-
-          <article class="card" draggable="true" data-task-id="05.2" data-state="open">
-            <div class="card-top"><span class="nr">05.2</span><span class="owner basti">Basti</span></div>
-            <h4>Ausstattungs-Popup mit Bildern bauen</h4>
-            <p>Nach der Liste von Jost wird der Ausstattungsbereich als Popup-/Detailansicht mit den Bildern von Jost umgesetzt.</p>
-            <div class="dependency">Abhängigkeit: erst nach Aufgabe 05.1</div>
-            <div class="meta"><span class="chip">Popup</span><span class="chip">Bilder</span></div>
-            <div class="card-actions">
-              <button class="status-btn doing" data-action="doing" type="button">▶ In Arbeit</button>
-              <button class="status-btn waiting" data-action="waiting" type="button">⏸ Warten</button>
-              <button class="status-btn done" data-action="done" type="button">✓ Erledigt</button>
-            </div>
-          </article>
-
-          <article class="card" draggable="true" data-task-id="06.2" data-state="open">
-            <div class="card-top"><span class="nr">06.2</span><span class="owner basti">Basti</span></div>
-            <h4>Impressumsseite erstellen</h4>
-            <p>Aus den von Jost gelieferten Daten wird eine eigene Impressums-Unterseite erstellt und verlinkt.</p>
-            <div class="dependency">Abhängigkeit: erst nach Aufgabe 06.1</div>
-            <div class="meta"><span class="chip">Unterseite</span><span class="chip">Impressum</span></div>
-            <div class="card-actions">
-              <button class="status-btn doing" data-action="doing" type="button">▶ In Arbeit</button>
-              <button class="status-btn waiting" data-action="waiting" type="button">⏸ Warten</button>
-              <button class="status-btn done" data-action="done" type="button">✓ Erledigt</button>
-            </div>
-          </article>
-        </div>
-        <div class="drag-hint">Kacheln hierher ziehen oder Status wählen.</div>
-      </div>
-
-      <div class="column" data-status="doing">
-        <div class="column-head"><h3>In Arbeit</h3><span class="count">0</span></div>
-        <div class="cards" data-dropzone="doing"></div>
-        <div class="drag-hint">Aktiv bearbeitete Aufgaben.</div>
-      </div>
-
-      <div class="column" data-status="waiting">
-        <div class="column-head"><h3>Wartet</h3><span class="count">0</span></div>
-        <div class="cards" data-dropzone="waiting">
-          <article class="card" draggable="true" data-task-id="01" data-state="waiting">
-            <div class="card-top"><span class="nr">01</span><span class="owner jost">Jost</span></div>
-            <h4>Bilder zusammensuchen</h4>
-            <p>Jost stellt die Bilder zusammen, die auf der neuen Website verwendet werden sollen.</p>
-            <div class="meta"><span class="chip due">Fällig: 03.10.2026</span><span class="chip">Bilder</span></div>
-            <div class="card-actions">
-              <button class="status-btn doing" data-action="doing" type="button">▶ In Arbeit</button>
-              <button class="status-btn done" data-action="done" type="button">✓ Erledigt</button>
-              <button class="status-btn" data-action="open" type="button">↩ Offen</button>
-            </div>
-          </article>
-
-          <article class="card" draggable="true" data-task-id="05.1" data-state="waiting">
-            <div class="card-top"><span class="nr">05.1</span><span class="owner jost">Jost</span></div>
-            <h4>Komplette Ausstattung auflisten</h4>
-            <p>Jost liefert eine vollständige Liste der Geräte, Software und weiteren Ausstattung.</p>
-            <div class="meta"><span class="chip">Ausstattung</span><span class="chip">Zulieferung</span></div>
-            <div class="card-actions">
-              <button class="status-btn doing" data-action="doing" type="button">▶ In Arbeit</button>
-              <button class="status-btn done" data-action="done" type="button">✓ Erledigt</button>
-              <button class="status-btn" data-action="open" type="button">↩ Offen</button>
-            </div>
-          </article>
-
-          <article class="card" draggable="true" data-task-id="06.1" data-state="waiting">
-            <div class="card-top"><span class="nr">06.1</span><span class="owner jost">Jost</span></div>
-            <h4>Richtige Impressumsdaten schicken</h4>
-            <p>Jost liefert die korrekten und vollständigen Daten für das Impressum.</p>
-            <div class="meta"><span class="chip">Rechtliches</span><span class="chip">Zulieferung</span></div>
-            <div class="card-actions">
-              <button class="status-btn doing" data-action="doing" type="button">▶ In Arbeit</button>
-              <button class="status-btn done" data-action="done" type="button">✓ Erledigt</button>
-              <button class="status-btn" data-action="open" type="button">↩ Offen</button>
-            </div>
-          </article>
-        </div>
-        <div class="drag-hint">Externe Zuarbeit oder Abhängigkeiten.</div>
-      </div>
-
-      <div class="column" data-status="done">
-        <div class="column-head"><h3>Erledigt</h3><span class="count">0</span></div>
-        <div class="cards" data-dropzone="done"></div>
-        <div class="drag-hint">Abgeschlossene Aufgaben.</div>
-      </div>
+    <section class="board" id="board">
+      <div class="loading" id="loading">Tickets werden aus GitHub geladen …</div>
+      <div class="column" data-status="open"><div class="column-head"><h3>Offen</h3><span class="count">0</span></div><div class="cards"></div></div>
+      <div class="column" data-status="doing"><div class="column-head"><h3>In Arbeit</h3><span class="count">0</span></div><div class="cards"></div></div>
+      <div class="column" data-status="waiting"><div class="column-head"><h3>Wartet</h3><span class="count">0</span></div><div class="cards"></div></div>
+      <div class="column" data-status="done"><div class="column-head"><h3>Erledigt</h3><span class="count">0</span></div><div class="cards"></div></div>
     </section>
   </div>
 </main>
 
-
-<div class="modal-backdrop" id="ticketModal" aria-hidden="true">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="ticketModalTitle">
-    <div class="modal-head">
-      <div>
-        <h3 id="ticketModalTitle">Neues Ticket erstellen</h3>
-        <p>Das Ticket wird in diesem Browser gespeichert und kann danach frei verschoben werden.</p>
-      </div>
-      <button class="modal-close" id="closeTicketModal" type="button" aria-label="Schließen">×</button>
-    </div>
-    <form class="ticket-form" id="ticketForm">
-      <div class="form-grid">
-        <div class="form-field full">
-          <label for="ticketTitle">Titel *</label>
-          <input id="ticketTitle" required maxlength="120" placeholder="z. B. Referenzprojekt ergänzen">
-        </div>
-        <div class="form-field full">
-          <label for="ticketDescription">Beschreibung</label>
-          <textarea id="ticketDescription" maxlength="800" placeholder="Was ist zu tun?"></textarea>
-        </div>
-        <div class="form-field">
-          <label for="ticketOwner">Verantwortlich</label>
-          <select id="ticketOwner">
-            <option value="Basti">Basti</option>
-            <option value="Jost">Jost</option>
-          </select>
-        </div>
-        <div class="form-field">
-          <label for="ticketStatus">Status</label>
-          <select id="ticketStatus">
-            <option value="open">Offen</option>
-            <option value="doing">In Arbeit</option>
-            <option value="waiting">Wartet</option>
-            <option value="done">Erledigt</option>
-          </select>
-        </div>
-        <div class="form-field">
-          <label for="ticketDue">Fällig am</label>
-          <input id="ticketDue" type="date">
-        </div>
-        <div class="form-field">
-          <label for="ticketCategory">Kategorie</label>
-          <input id="ticketCategory" maxlength="40" placeholder="z. B. Startseite">
-        </div>
-      </div>
-      <div class="modal-actions">
-        <button class="ticket-cancel" id="cancelTicket" type="button">Abbrechen</button>
-        <button class="ticket-create" type="submit">Ticket erstellen</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<footer>
-  <div class="wrap">Interne Projektübersicht · GudeliusVermessung · Version 3 Beta</div>
-</footer>
+<footer><div class="wrap">Interne Projektübersicht · Datenquelle: GitHub Issues · GudeliusVermessung Version 3 Beta</div></footer>
 
 <script>
 (() => {
-  const STATE_KEY = 'gudelius-kanban-v3-beta';
-  const CUSTOM_KEY = 'gudelius-kanban-v3-beta-custom';
-  const board = document.getElementById('kanbanBoard');
-  const columns = [...board.querySelectorAll('.column')];
-  const resetButton = document.getElementById('resetBoard');
-  const progressText = document.getElementById('progressText');
-  const progressBar = document.getElementById('progressBar');
-  const modal = document.getElementById('ticketModal');
-  const openModalButton = document.getElementById('openTicketModal');
-  const closeModalButton = document.getElementById('closeTicketModal');
-  const cancelTicketButton = document.getElementById('cancelTicket');
-  const ticketForm = document.getElementById('ticketForm');
-  let draggedCard = null;
+  const API = 'https://api.github.com/repos/SebMut/Smartwerk-Presentation/issues?state=all&labels=gudelius-beta&per_page=100&sort=created&direction=asc';
+  const NEW = 'https://github.com/SebMut/Smartwerk-Presentation/issues/new?title=' +
+    encodeURIComponent('[Gudelius Beta] ') +
+    '&body=' + encodeURIComponent('## Aufgabe\n\nBeschreibung hier eintragen.\n\n**Status:** Offen  \n**Verantwortlich:** Basti  \n**Bereich:** \n\nVerknüpft mit: Version 3 Beta');
 
-  const builtInDefaults = {};
-  board.querySelectorAll('.card').forEach((card, index) => {
-    builtInDefaults[card.dataset.taskId] = {
-      status: card.closest('.column').dataset.status,
-      order: index
-    };
-  });
+  document.getElementById('newTicket').href = NEW;
+  const loading = document.getElementById('loading');
+  const syncText = document.getElementById('syncText');
+  const refresh = document.getElementById('refresh');
+  const columns = [...document.querySelectorAll('.column')];
 
-  function escapeHtml(value = '') {
-    return String(value).replace(/[&<>"']/g, ch => ({
-      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'
-    })[ch]);
+  const esc = (s='') => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+
+  function labelNames(issue) {
+    return (issue.labels || []).map(l => typeof l === 'string' ? l : l.name);
   }
 
-  function formatDate(value) {
-    if (!value) return '';
-    const [y,m,d] = value.split('-');
-    return d + '.' + m + '.' + y;
+  function statusOf(issue) {
+    if (issue.state === 'closed') return 'done';
+    const labels = labelNames(issue);
+    if (labels.includes('status: in-arbeit')) return 'doing';
+    if (labels.includes('status: wartet')) return 'waiting';
+    if (labels.includes('status: erledigt')) return 'done';
+    return 'open';
   }
 
-  function ownerClass(owner) {
-    return owner === 'Jost' ? 'jost' : 'basti';
+  function ownerOf(issue) {
+    const labels = labelNames(issue);
+    if (labels.includes('verantwortlich: jost')) return ['Jost','jost'];
+    if (labels.includes('verantwortlich: basti')) return ['Basti','basti'];
+    return ['–','none'];
   }
 
-  function actionButtons() {
-    return `
-      <div class="card-actions">
-        <button class="status-btn" data-action="open" type="button">↩ Offen</button>
-        <button class="status-btn doing" data-action="doing" type="button">▶ In Arbeit</button>
-        <button class="status-btn waiting" data-action="waiting" type="button">⏸ Warten</button>
-        <button class="status-btn done" data-action="done" type="button">✓ Erledigt</button>
-        <button class="status-btn delete-ticket" data-delete-ticket type="button">Löschen</button>
-      </div>`;
+  function descriptionOf(body='') {
+    const lines = body.split('\n').map(x => x.trim()).filter(Boolean);
+    return lines.find(x => !x.startsWith('#') && !x.startsWith('**') && !x.startsWith('Verknüpft mit:')) || '';
   }
 
-  function createCustomCard(ticket) {
-    const card = document.createElement('article');
-    card.className = 'card';
-    card.draggable = true;
-    card.dataset.taskId = ticket.id;
-    card.dataset.state = ticket.status || 'open';
-    card.dataset.custom = 'true';
-    card.innerHTML = `
+  function dueOf(body='') {
+    const m = body.match(/\*\*(?:Fällig|Ziel):\*\*\s*([^\n]+)/i);
+    return m ? m[1].replace(/\s+$/,'') : '';
+  }
+
+  function areaOf(body='') {
+    const m = body.match(/\*\*Bereich:\*\*\s*([^\n]+)/i);
+    return m ? m[1].replace(/\s+$/,'') : '';
+  }
+
+  function cleanTitle(title='') {
+    return title.replace(/^\[Gudelius Beta\]\s*/,'');
+  }
+
+  function card(issue) {
+    const status = statusOf(issue);
+    const [owner, ownerClass] = ownerOf(issue);
+    const due = dueOf(issue.body || '');
+    const area = areaOf(issue.body || '');
+    const a = document.createElement('a');
+    a.className = 'card ' + status;
+    a.href = issue.html_url;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.innerHTML = `
       <div class="card-top">
-        <span class="nr">${escapeHtml(ticket.number)}</span>
-        <span class="owner ${ownerClass(ticket.owner)}">${escapeHtml(ticket.owner)}</span>
+        <span class="issue">#${issue.number}</span>
+        <span class="owner ${ownerClass}">${esc(owner)}</span>
       </div>
-      <h4>${escapeHtml(ticket.title)}</h4>
-      ${ticket.description ? '<p>' + escapeHtml(ticket.description) + '</p>' : ''}
+      <h4>${esc(cleanTitle(issue.title))}</h4>
+      <p>${esc(descriptionOf(issue.body || ''))}</p>
       <div class="meta">
-        <span class="chip custom-flag">Eigenes Ticket</span>
-        ${ticket.due ? '<span class="chip due">Fällig: ' + formatDate(ticket.due) + '</span>' : ''}
-        ${ticket.category ? '<span class="chip">' + escapeHtml(ticket.category) + '</span>' : ''}
+        ${due ? '<span class="chip due">' + esc(due) + '</span>' : ''}
+        ${area ? '<span class="chip">' + esc(area) + '</span>' : ''}
       </div>
-      ${actionButtons()}
+      <span class="github-link">In GitHub öffnen / Status ändern →</span>
     `;
-    return card;
+    return [status,a];
   }
 
-  function getCustomTickets() {
+  function emptyColumns() {
+    columns.forEach(c => {
+      c.querySelector('.cards').innerHTML = '';
+      c.querySelector('.count').textContent = '0';
+    });
+  }
+
+  function addEmptyMessages() {
+    columns.forEach(c => {
+      const cards = c.querySelector('.cards');
+      if (!cards.children.length) cards.innerHTML = '<div class="empty">Keine Tickets</div>';
+    });
+  }
+
+  async function load() {
+    refresh.disabled = true;
+    syncText.textContent = 'GitHub wird geladen …';
+    loading.style.display = 'block';
+    loading.classList.remove('error');
     try {
-      return JSON.parse(localStorage.getItem(CUSTOM_KEY) || '[]');
-    } catch {
-      return [];
-    }
-  }
+      const res = await fetch(API, {headers:{'Accept':'application/vnd.github+json'}});
+      if (!res.ok) throw new Error('GitHub API: ' + res.status);
+      const issues = (await res.json()).filter(i => !i.pull_request);
+      emptyColumns();
 
-  function saveCustomTickets(tickets) {
-    localStorage.setItem(CUSTOM_KEY, JSON.stringify(tickets));
-  }
-
-  function loadCustomTickets() {
-    getCustomTickets().forEach(ticket => {
-      const target = board.querySelector('[data-dropzone="' + (ticket.status || 'open') + '"]');
-      if (target && !board.querySelector('.card[data-task-id="' + CSS.escape(ticket.id) + '"]')) {
-        target.appendChild(createCustomCard(ticket));
-      }
-    });
-  }
-
-  function setActiveButtons(card) {
-    card.querySelectorAll('[data-action]').forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.action === card.dataset.state);
-    });
-  }
-
-  function updateCounts() {
-    columns.forEach(column => {
-      column.querySelector('.count').textContent = column.querySelectorAll('.card').length;
-    });
-    const total = board.querySelectorAll('.card').length;
-    const done = board.querySelectorAll('.column[data-status="done"] .card').length;
-    progressText.textContent = done + ' / ' + total + ' erledigt';
-    progressBar.style.width = total ? ((done / total) * 100) + '%' : '0%';
-  }
-
-  function updateCustomTicketState(id, status) {
-    const tickets = getCustomTickets();
-    const ticket = tickets.find(t => t.id === id);
-    if (ticket) {
-      ticket.status = status;
-      saveCustomTickets(tickets);
-    }
-  }
-
-  function saveBoard() {
-    const state = {};
-    columns.forEach(column => {
-      [...column.querySelectorAll('.card')].forEach((card, order) => {
-        state[card.dataset.taskId] = { status: column.dataset.status, order };
-        if (card.dataset.custom === 'true') {
-          updateCustomTicketState(card.dataset.taskId, column.dataset.status);
-        }
+      const counts = {open:0,doing:0,waiting:0,done:0};
+      issues.forEach(issue => {
+        const [status, node] = card(issue);
+        document.querySelector('.column[data-status="' + status + '"] .cards').appendChild(node);
+        counts[status]++;
       });
-    });
-    localStorage.setItem(STATE_KEY, JSON.stringify(state));
-    updateCounts();
-  }
 
-  function moveCard(card, status, save = true) {
-    const target = board.querySelector('[data-dropzone="' + status + '"]');
-    if (!target) return;
-    target.appendChild(card);
-    card.dataset.state = status;
-    setActiveButtons(card);
-    if (card.dataset.custom === 'true') updateCustomTicketState(card.dataset.taskId, status);
-    if (save) saveBoard();
-  }
-
-  function restoreBoard() {
-    const saved = localStorage.getItem(STATE_KEY);
-    if (saved) {
-      try {
-        const state = JSON.parse(saved);
-        const grouped = {};
-        Object.entries(state).forEach(([id, data]) => {
-          (grouped[data.status] ||= []).push([id, data]);
-        });
-        Object.entries(grouped).forEach(([status, entries]) => {
-          entries
-            .sort((a,b) => (a[1].order ?? 0) - (b[1].order ?? 0))
-            .forEach(([id]) => {
-              const card = board.querySelector('.card[data-task-id="' + CSS.escape(id) + '"]');
-              if (card) moveCard(card, status, false);
-            });
-        });
-      } catch (e) {
-        console.warn('Kanban-Status konnte nicht geladen werden.', e);
-      }
+      columns.forEach(c => c.querySelector('.count').textContent = counts[c.dataset.status]);
+      addEmptyMessages();
+      loading.style.display = 'none';
+      const now = new Date();
+      syncText.textContent = 'Aktuell · ' + now.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'});
+    } catch (err) {
+      loading.style.display = 'block';
+      loading.classList.add('error');
+      loading.textContent = 'GitHub konnte nicht geladen werden. Bitte später erneut versuchen.';
+      syncText.textContent = 'Fehler beim Laden';
+      console.error(err);
+    } finally {
+      refresh.disabled = false;
     }
-    board.querySelectorAll('.card').forEach(setActiveButtons);
-    updateCounts();
   }
 
-  function openModal() {
-    modal.classList.add('open');
-    modal.setAttribute('aria-hidden','false');
-    setTimeout(() => document.getElementById('ticketTitle').focus(), 50);
-  }
-
-  function closeModal() {
-    modal.classList.remove('open');
-    modal.setAttribute('aria-hidden','true');
-    ticketForm.reset();
-  }
-
-  function nextTicketNumber() {
-    const tickets = getCustomTickets();
-    const nums = tickets
-      .map(t => Number(String(t.number || '').replace(/\D/g,'')))
-      .filter(Number.isFinite);
-    const next = nums.length ? Math.max(...nums) + 1 : 1;
-    return 'T-' + String(next).padStart(3,'0');
-  }
-
-  openModalButton.addEventListener('click', openModal);
-  closeModalButton.addEventListener('click', closeModal);
-  cancelTicketButton.addEventListener('click', closeModal);
-  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
-
-  ticketForm.addEventListener('submit', e => {
-    e.preventDefault();
-    const ticket = {
-      id: 'custom-' + Date.now(),
-      number: nextTicketNumber(),
-      title: document.getElementById('ticketTitle').value.trim(),
-      description: document.getElementById('ticketDescription').value.trim(),
-      owner: document.getElementById('ticketOwner').value,
-      status: document.getElementById('ticketStatus').value,
-      due: document.getElementById('ticketDue').value,
-      category: document.getElementById('ticketCategory').value.trim()
-    };
-    if (!ticket.title) return;
-    const tickets = getCustomTickets();
-    tickets.push(ticket);
-    saveCustomTickets(tickets);
-    const card = createCustomCard(ticket);
-    board.querySelector('[data-dropzone="' + ticket.status + '"]').appendChild(card);
-    setActiveButtons(card);
-    saveBoard();
-    closeModal();
-  });
-
-  board.addEventListener('click', e => {
-    const deleteBtn = e.target.closest('[data-delete-ticket]');
-    if (deleteBtn) {
-      const card = deleteBtn.closest('.card');
-      if (!confirm('Dieses Ticket wirklich löschen?')) return;
-      const tickets = getCustomTickets().filter(t => t.id !== card.dataset.taskId);
-      saveCustomTickets(tickets);
-      card.remove();
-      saveBoard();
-      return;
-    }
-
-    const button = e.target.closest('[data-action]');
-    if (!button) return;
-    const card = button.closest('.card');
-    moveCard(card, button.dataset.action);
-  });
-
-  board.addEventListener('dragstart', e => {
-    const card = e.target.closest('.card');
-    if (!card) return;
-    draggedCard = card;
-    card.classList.add('dragging');
-    e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text/plain', card.dataset.taskId);
-  });
-
-  board.addEventListener('dragend', e => {
-    const card = e.target.closest('.card');
-    if (card) card.classList.remove('dragging');
-    columns.forEach(c => c.classList.remove('drag-over'));
-    draggedCard = null;
-    saveBoard();
-  });
-
-  columns.forEach(column => {
-    column.addEventListener('dragover', e => {
-      e.preventDefault();
-      e.dataTransfer.dropEffect = 'move';
-      column.classList.add('drag-over');
-    });
-    column.addEventListener('dragleave', e => {
-      if (!column.contains(e.relatedTarget)) column.classList.remove('drag-over');
-    });
-    column.addEventListener('drop', e => {
-      e.preventDefault();
-      column.classList.remove('drag-over');
-      if (!draggedCard) return;
-      moveCard(draggedCard, column.dataset.status);
-    });
-  });
-
-  resetButton.addEventListener('click', () => {
-    if (!confirm('Kanban komplett zurücksetzen? Dabei werden auch selbst erstellte Tickets gelöscht.')) return;
-    localStorage.removeItem(STATE_KEY);
-    localStorage.removeItem(CUSTOM_KEY);
-    board.querySelectorAll('.card[data-custom="true"]').forEach(card => card.remove());
-    Object.entries(builtInDefaults)
-      .sort((a,b) => a[1].order - b[1].order)
-      .forEach(([id, data]) => {
-        const card = board.querySelector('.card[data-task-id="' + CSS.escape(id) + '"]');
-        if (card) moveCard(card, data.status, false);
-      });
-    board.querySelectorAll('.card').forEach(setActiveButtons);
-    updateCounts();
-  });
-
-  loadCustomTickets();
-  restoreBoard();
+  refresh.addEventListener('click', load);
+  load();
+  setInterval(load, 120000);
 })();
 </script>
-
 </body>
 </html>
