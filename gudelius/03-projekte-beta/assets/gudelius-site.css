@@ -630,3 +630,32 @@ body.modal-open{overflow:hidden}
   .equipment-device-grid{grid-template-columns:1fr}
   .equipment-device-card img{height:210px}
 }
+
+
+/* Hersteller-/Produktbilder als Beta-Platzhalter */
+.equip-preview-strip{
+  grid-template-columns:repeat(auto-fit,minmax(54px,1fr));
+}
+.equip-preview-strip img{
+  object-fit:cover;
+  background:#fff;
+}
+.equip-card>img{
+  background:#fff;
+  object-fit:contain;
+  padding:10px;
+}
+.equipment-device-card img{
+  object-fit:contain;
+  background:#fff;
+  padding:14px;
+}
+.equipment-source{
+  display:inline-flex;
+  margin-top:10px;
+  color:#8a7110;
+  font-size:.68rem;
+  font-weight:800;
+  line-height:1.35;
+}
+.equipment-source:hover{text-decoration:underline}
