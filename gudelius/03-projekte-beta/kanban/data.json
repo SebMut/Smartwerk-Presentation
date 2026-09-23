@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T10:05:35.278Z",
+  "generated_at": "2026-09-23T10:57:57.296Z",
   "source": "GitHub Issues",
   "issues": [
     {
@@ -53,14 +53,14 @@
     {
       "number": 3,
       "title": "[Gudelius Beta] Leistungsfelder nach oben verschieben",
-      "body": "## Aufgabe\nDen Bereich „Leistungsfelder“ auf der Startseite weiter nach oben verschieben, damit Leistungen früher sichtbar werden.\n\n**Status:** Offen  \n**Verantwortlich:** Basti  \n**Bereich:** Startseite  \n**Priorität:** Hoch\n\nVerknüpft mit: Version 3 Beta",
-      "state": "open",
+      "body": "## Aufgabe\nDen Bereich „Leistungsfelder“ auf der Startseite weiter nach oben verschieben, damit Leistungen früher sichtbar werden.\n\n**Status:** Erledigt  \n**Verantwortlich:** Basti  \n**Bereich:** Startseite  \n**Priorität:** Hoch\n\n## Umsetzung\n\n- „Leistungsfelder“ steht jetzt direkt unter dem Hero.\n- „Leistungen“ steht im Hauptmenü vor „Projekte“.\n- Der primäre Hero-Button führt jetzt auf „Leistungen ansehen“.\n- Die vier Leistungs-Kacheln bleiben direkt mit ihren Unterseiten verknüpft.\n\nBeta:\nhttps://sebmut.github.io/Smartwerk-Presentation/gudelius/03-projekte-beta/\n\nVerknüpft mit: Version 3 Beta",
+      "state": "closed",
       "html_url": "https://github.com/SebMut/Smartwerk-Presentation/issues/3",
       "labels": [
         {
-          "name": "status: offen",
-          "color": "D4C44D",
-          "description": "Noch nicht begonnen"
+          "name": "status: erledigt",
+          "color": "5A9A6A",
+          "description": "Abgeschlossen"
         },
         {
           "name": "verantwortlich: basti",
@@ -77,14 +77,14 @@
     {
       "number": 4,
       "title": "[Gudelius Beta] „Arbeit, die man sehen kann.“ nach unten verschieben",
-      "body": "## Aufgabe\nDen Projekt-/Bildbereich „Arbeit, die man sehen kann.“ auf der Startseite weiter nach unten verschieben.\n\n**Status:** Offen  \n**Verantwortlich:** Basti  \n**Bereich:** Startseite\n\nVerknüpft mit: Version 3 Beta",
-      "state": "open",
+      "body": "## Aufgabe\nDen Projekt-/Bildbereich „Arbeit, die man sehen kann.“ auf der Startseite weiter nach unten verschieben.\n\n**Status:** Erledigt  \n**Verantwortlich:** Basti  \n**Bereich:** Startseite\n\n## Umsetzung\n\nDer Bereich „Arbeit, die man sehen kann.“ wurde deutlich nach unten verschoben.\n\nNeue Reihenfolge der Startseite:\n1. Hero\n2. Leistungsfelder\n3. Projektbegleitung\n4. Unternehmen\n5. Ausstattung\n6. Arbeit, die man sehen kann.\n7. Kontakt\n\nBeta:\nhttps://sebmut.github.io/Smartwerk-Presentation/gudelius/03-projekte-beta/\n\nVerknüpft mit: Version 3 Beta",
+      "state": "closed",
       "html_url": "https://github.com/SebMut/Smartwerk-Presentation/issues/4",
       "labels": [
         {
-          "name": "status: offen",
-          "color": "D4C44D",
-          "description": "Noch nicht begonnen"
+          "name": "status: erledigt",
+          "color": "5A9A6A",
+          "description": "Abgeschlossen"
         },
         {
           "name": "verantwortlich: basti",
