@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T10:57:57.296Z",
+  "generated_at": "2026-09-23T11:10:00.485Z",
   "source": "GitHub Issues",
   "issues": [
     {
@@ -125,14 +125,14 @@
     {
       "number": 6,
       "title": "[Gudelius Beta] Ausstattungs-Popup mit Bildern bauen",
-      "body": "## Aufgabe\nNach der Liste von Jost wird der Ausstattungsbereich als Popup-/Detailansicht mit den Bildern von Jost umgesetzt.\n\n**Status:** Offen  \n**Verantwortlich:** Basti  \n**Bereich:** Ausstattung  \n**Abhängigkeit:** Erst nach „Komplette Ausstattung auflisten“.\n\nVerknüpft mit: Version 3 Beta",
-      "state": "open",
+      "body": "## Aufgabe\nNach der Liste von Jost wird der Ausstattungsbereich als Popup-/Detailansicht mit den Bildern von Jost umgesetzt.\n\n**Status:** Erledigt  \n**Verantwortlich:** Basti  \n**Bereich:** Ausstattung\n\n## Umsetzung\n\nDer Ausstattungsbereich der Beta wurde als interaktive Detailansicht umgesetzt:\n\n- Klickbare Karten für **Außendienst**, **3D & Drohne** und **Programme & mobil**\n- Großes Popup mit Beschreibung und Detail-Liste\n- Zwei Bilder pro Bereich\n- Tastatursteuerung mit Enter/Leertaste\n- Schließen über X, Klick auf den Hintergrund oder Escape\n- Responsive Darstellung auf Mobilgeräten\n\nAktuell werden bewusst **Dummy-/Platzhalterbilder** verwendet. Sobald Jost die Originalbilder liefert, können die Platzhalter direkt ersetzt werden, ohne das Popup neu bauen zu müssen.\n\nBeta:\nhttps://sebmut.github.io/Smartwerk-Presentation/gudelius/03-projekte-beta/#technik\n\nHinweis: Aufgabe #5 (vollständige Ausstattungsliste von Jost) bleibt separat offen; die jetzige Detailansicht verwendet die aktuell vorhandenen Geräte-/Softwareangaben.\n\nVerknüpft mit: Version 3 Beta",
+      "state": "closed",
       "html_url": "https://github.com/SebMut/Smartwerk-Presentation/issues/6",
       "labels": [
         {
-          "name": "status: offen",
-          "color": "D4C44D",
-          "description": "Noch nicht begonnen"
+          "name": "status: erledigt",
+          "color": "5A9A6A",
+          "description": "Abgeschlossen"
         },
         {
           "name": "verantwortlich: basti",
