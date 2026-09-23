@@ -1,0 +1,150 @@
+{
+  "generated_at": "2026-09-23T09:56:49.403Z",
+  "source": "GitHub Issues",
+  "issues": [
+    {
+      "number": 1,
+      "title": "[Gudelius Beta] Bilder zusammensuchen",
+      "body": "## Aufgabe\nJost stellt die Bilder zusammen, die auf der neuen Website verwendet werden sollen.\n\n**Status:** Wartet  \n**Verantwortlich:** Jost  \n**Fällig:** 03.10.2026  \n**Bereich:** Bilder\n\nVerknüpft mit: Version 3 Beta",
+      "state": "open",
+      "html_url": "https://github.com/SebMut/Smartwerk-Presentation/issues/1",
+      "labels": [
+        {
+          "name": "gudelius-beta"
+        },
+        {
+          "name": "status: wartet"
+        },
+        {
+          "name": "verantwortlich: jost"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "[Gudelius Beta] Leistungs-Unterseiten erstellen",
+      "body": "## Aufgabe\nUnterseiten für Ingenieurvermessung, GIS & Bauvermessung, 3D-Laserscanning und Drohnenvermessung erstellen.\n\n**Status:** Offen  \n**Verantwortlich:** Basti  \n**Ziel:** 03.10.2026  \n**Bereich:** Unterseiten\n\nVerknüpft mit: Version 3 Beta",
+      "state": "open",
+      "html_url": "https://github.com/SebMut/Smartwerk-Presentation/issues/2",
+      "labels": [
+        {
+          "name": "gudelius-beta"
+        },
+        {
+          "name": "status: offen"
+        },
+        {
+          "name": "verantwortlich: basti"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "[Gudelius Beta] Leistungsfelder nach oben verschieben",
+      "body": "## Aufgabe\nDen Bereich „Leistungsfelder“ auf der Startseite weiter nach oben verschieben, damit Leistungen früher sichtbar werden.\n\n**Status:** Offen  \n**Verantwortlich:** Basti  \n**Bereich:** Startseite  \n**Priorität:** Hoch\n\nVerknüpft mit: Version 3 Beta",
+      "state": "open",
+      "html_url": "https://github.com/SebMut/Smartwerk-Presentation/issues/3",
+      "labels": [
+        {
+          "name": "gudelius-beta"
+        },
+        {
+          "name": "status: offen"
+        },
+        {
+          "name": "verantwortlich: basti"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "[Gudelius Beta] „Arbeit, die man sehen kann.“ nach unten verschieben",
+      "body": "## Aufgabe\nDen Projekt-/Bildbereich „Arbeit, die man sehen kann.“ auf der Startseite weiter nach unten verschieben.\n\n**Status:** Offen  \n**Verantwortlich:** Basti  \n**Bereich:** Startseite\n\nVerknüpft mit: Version 3 Beta",
+      "state": "open",
+      "html_url": "https://github.com/SebMut/Smartwerk-Presentation/issues/4",
+      "labels": [
+        {
+          "name": "gudelius-beta"
+        },
+        {
+          "name": "status: offen"
+        },
+        {
+          "name": "verantwortlich: basti"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "[Gudelius Beta] Komplette Ausstattung auflisten",
+      "body": "## Aufgabe\nJost liefert eine vollständige Liste der Geräte, Software und weiteren Ausstattung.\n\n**Status:** Wartet  \n**Verantwortlich:** Jost  \n**Bereich:** Ausstattung\n\nVerknüpft mit: Version 3 Beta",
+      "state": "open",
+      "html_url": "https://github.com/SebMut/Smartwerk-Presentation/issues/5",
+      "labels": [
+        {
+          "name": "gudelius-beta"
+        },
+        {
+          "name": "status: wartet"
+        },
+        {
+          "name": "verantwortlich: jost"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "[Gudelius Beta] Ausstattungs-Popup mit Bildern bauen",
+      "body": "## Aufgabe\nNach der Liste von Jost wird der Ausstattungsbereich als Popup-/Detailansicht mit den Bildern von Jost umgesetzt.\n\n**Status:** Offen  \n**Verantwortlich:** Basti  \n**Bereich:** Ausstattung  \n**Abhängigkeit:** Erst nach „Komplette Ausstattung auflisten“.\n\nVerknüpft mit: Version 3 Beta",
+      "state": "open",
+      "html_url": "https://github.com/SebMut/Smartwerk-Presentation/issues/6",
+      "labels": [
+        {
+          "name": "gudelius-beta"
+        },
+        {
+          "name": "status: offen"
+        },
+        {
+          "name": "verantwortlich: basti"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "[Gudelius Beta] Richtige Impressumsdaten schicken",
+      "body": "## Aufgabe\nJost liefert die korrekten und vollständigen Daten für das Impressum.\n\n**Status:** Wartet  \n**Verantwortlich:** Jost  \n**Bereich:** Impressum\n\nVerknüpft mit: Version 3 Beta",
+      "state": "open",
+      "html_url": "https://github.com/SebMut/Smartwerk-Presentation/issues/7",
+      "labels": [
+        {
+          "name": "gudelius-beta"
+        },
+        {
+          "name": "status: wartet"
+        },
+        {
+          "name": "verantwortlich: jost"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "[Gudelius Beta] Impressumsseite erstellen",
+      "body": "## Aufgabe\nAus den von Jost gelieferten Daten wird eine eigene Impressums-Unterseite erstellt und verlinkt.\n\n**Status:** Offen  \n**Verantwortlich:** Basti  \n**Bereich:** Impressum  \n**Abhängigkeit:** Erst nach „Richtige Impressumsdaten schicken“.\n\nVerknüpft mit: Version 3 Beta",
+      "state": "open",
+      "html_url": "https://github.com/SebMut/Smartwerk-Presentation/issues/8",
+      "labels": [
+        {
+          "name": "gudelius-beta"
+        },
+        {
+          "name": "status: offen"
+        },
+        {
+          "name": "verantwortlich: basti"
+        }
+      ]
+    }
+  ]
+}
