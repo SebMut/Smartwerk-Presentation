@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T09:56:49.403Z",
+  "generated_at": "2026-09-23T10:02:09.562Z",
   "source": "GitHub Issues",
   "issues": [
     {
@@ -10,13 +10,19 @@
       "html_url": "https://github.com/SebMut/Smartwerk-Presentation/issues/1",
       "labels": [
         {
-          "name": "gudelius-beta"
+          "name": "status: wartet",
+          "color": "D7A64A",
+          "description": "Wartet auf Zuarbeit oder Abhängigkeit"
         },
         {
-          "name": "status: wartet"
+          "name": "verantwortlich: jost",
+          "color": "8FB5C7",
+          "description": "Verantwortlich: Jost"
         },
         {
-          "name": "verantwortlich: jost"
+          "name": "gudelius-beta",
+          "color": "E5C533",
+          "description": "Gudelius Version 3 Beta"
         }
       ]
     },
@@ -24,17 +30,23 @@
       "number": 2,
       "title": "[Gudelius Beta] Leistungs-Unterseiten erstellen",
       "body": "## Aufgabe\nUnterseiten für Ingenieurvermessung, GIS & Bauvermessung, 3D-Laserscanning und Drohnenvermessung erstellen.\n\n**Status:** Offen  \n**Verantwortlich:** Basti  \n**Ziel:** 03.10.2026  \n**Bereich:** Unterseiten\n\nVerknüpft mit: Version 3 Beta",
-      "state": "open",
+      "state": "closed",
       "html_url": "https://github.com/SebMut/Smartwerk-Presentation/issues/2",
       "labels": [
         {
-          "name": "gudelius-beta"
+          "name": "status: erledigt",
+          "color": "5A9A6A",
+          "description": "Abgeschlossen"
         },
         {
-          "name": "status: offen"
+          "name": "verantwortlich: basti",
+          "color": "8BC49A",
+          "description": "Verantwortlich: Basti"
         },
         {
-          "name": "verantwortlich: basti"
+          "name": "gudelius-beta",
+          "color": "E5C533",
+          "description": "Gudelius Version 3 Beta"
         }
       ]
     },
@@ -46,13 +58,19 @@
       "html_url": "https://github.com/SebMut/Smartwerk-Presentation/issues/3",
       "labels": [
         {
-          "name": "gudelius-beta"
+          "name": "status: offen",
+          "color": "D4C44D",
+          "description": "Noch nicht begonnen"
         },
         {
-          "name": "status: offen"
+          "name": "verantwortlich: basti",
+          "color": "8BC49A",
+          "description": "Verantwortlich: Basti"
         },
         {
-          "name": "verantwortlich: basti"
+          "name": "gudelius-beta",
+          "color": "E5C533",
+          "description": "Gudelius Version 3 Beta"
         }
       ]
     },
@@ -64,13 +82,19 @@
       "html_url": "https://github.com/SebMut/Smartwerk-Presentation/issues/4",
       "labels": [
         {
-          "name": "gudelius-beta"
+          "name": "status: offen",
+          "color": "D4C44D",
+          "description": "Noch nicht begonnen"
         },
         {
-          "name": "status: offen"
+          "name": "verantwortlich: basti",
+          "color": "8BC49A",
+          "description": "Verantwortlich: Basti"
         },
         {
-          "name": "verantwortlich: basti"
+          "name": "gudelius-beta",
+          "color": "E5C533",
+          "description": "Gudelius Version 3 Beta"
         }
       ]
     },
@@ -82,13 +106,19 @@
       "html_url": "https://github.com/SebMut/Smartwerk-Presentation/issues/5",
       "labels": [
         {
-          "name": "gudelius-beta"
+          "name": "status: wartet",
+          "color": "D7A64A",
+          "description": "Wartet auf Zuarbeit oder Abhängigkeit"
         },
         {
-          "name": "status: wartet"
+          "name": "verantwortlich: jost",
+          "color": "8FB5C7",
+          "description": "Verantwortlich: Jost"
         },
         {
-          "name": "verantwortlich: jost"
+          "name": "gudelius-beta",
+          "color": "E5C533",
+          "description": "Gudelius Version 3 Beta"
         }
       ]
     },
@@ -100,13 +130,19 @@
       "html_url": "https://github.com/SebMut/Smartwerk-Presentation/issues/6",
       "labels": [
         {
-          "name": "gudelius-beta"
+          "name": "status: offen",
+          "color": "D4C44D",
+          "description": "Noch nicht begonnen"
         },
         {
-          "name": "status: offen"
+          "name": "verantwortlich: basti",
+          "color": "8BC49A",
+          "description": "Verantwortlich: Basti"
         },
         {
-          "name": "verantwortlich: basti"
+          "name": "gudelius-beta",
+          "color": "E5C533",
+          "description": "Gudelius Version 3 Beta"
         }
       ]
     },
@@ -118,13 +154,19 @@
       "html_url": "https://github.com/SebMut/Smartwerk-Presentation/issues/7",
       "labels": [
         {
-          "name": "gudelius-beta"
+          "name": "status: wartet",
+          "color": "D7A64A",
+          "description": "Wartet auf Zuarbeit oder Abhängigkeit"
         },
         {
-          "name": "status: wartet"
+          "name": "verantwortlich: jost",
+          "color": "8FB5C7",
+          "description": "Verantwortlich: Jost"
         },
         {
-          "name": "verantwortlich: jost"
+          "name": "gudelius-beta",
+          "color": "E5C533",
+          "description": "Gudelius Version 3 Beta"
         }
       ]
     },
@@ -136,13 +178,19 @@
       "html_url": "https://github.com/SebMut/Smartwerk-Presentation/issues/8",
       "labels": [
         {
-          "name": "gudelius-beta"
+          "name": "status: offen",
+          "color": "D4C44D",
+          "description": "Noch nicht begonnen"
         },
         {
-          "name": "status: offen"
+          "name": "verantwortlich: basti",
+          "color": "8BC49A",
+          "description": "Verantwortlich: Basti"
         },
         {
-          "name": "verantwortlich: basti"
+          "name": "gudelius-beta",
+          "color": "E5C533",
+          "description": "Gudelius Version 3 Beta"
         }
       ]
     }
