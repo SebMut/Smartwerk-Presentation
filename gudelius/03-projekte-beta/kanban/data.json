@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T11:10:00.485Z",
+  "generated_at": "2026-09-23T12:43:01.232Z",
   "source": "GitHub Issues",
   "issues": [
     {
@@ -149,14 +149,14 @@
     {
       "number": 7,
       "title": "[Gudelius Beta] Richtige Impressumsdaten schicken",
-      "body": "## Aufgabe\nJost liefert die korrekten und vollständigen Daten für das Impressum.\n\n**Status:** Wartet  \n**Verantwortlich:** Jost  \n**Bereich:** Impressum\n\nVerknüpft mit: Version 3 Beta",
-      "state": "open",
+      "body": "## Aufgabe\nJost liefert die korrekten und vollständigen Daten für das Impressum.\n\n**Status:** Erledigt  \n**Verantwortlich:** Jost  \n**Bereich:** Impressum\n\n## Umsetzung\n\nDie vollständigen Impressumsdaten und Rechtstexte wurden bereitgestellt und in die Beta übernommen.\n\nEnthalten sind:\n- Angaben gemäß § 5 TMG\n- Kontaktdaten inkl. Fax\n- Berufsbezeichnung und berufsrechtliche Angaben\n- Berufshaftpflichtversicherung\n- EU-Streitschlichtung\n- Verbraucherstreitbeilegung\n- Haftung für Inhalte\n- Haftung für Links\n- Urheberrecht\n- Quellenangabe e-recht24\n\nBeta-Impressum:\nhttps://sebmut.github.io/Smartwerk-Presentation/gudelius/03-projekte-beta/impressum/\n\nVerknüpft mit: Version 3 Beta",
+      "state": "closed",
       "html_url": "https://github.com/SebMut/Smartwerk-Presentation/issues/7",
       "labels": [
         {
-          "name": "status: wartet",
-          "color": "D7A64A",
-          "description": "Wartet auf Zuarbeit oder Abhängigkeit"
+          "name": "status: erledigt",
+          "color": "5A9A6A",
+          "description": "Abgeschlossen"
         },
         {
           "name": "verantwortlich: jost",
