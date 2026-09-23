@@ -335,3 +335,46 @@
     transform:translate(-50%,0)!important;
   }
 }
+
+
+/* Farb-Rhythmus der Beta-Startseite */
+.theme-projects:not(.service-page) #leistungen{
+  background:#f4f2ec;
+  border-top:1px solid #e5e1d7;
+  border-bottom:1px solid #e5e1d7;
+}
+
+.theme-projects:not(.service-page) .feature-band{
+  background:#172026;
+}
+
+.theme-projects:not(.service-page) #projekte{
+  background:#ffffff;
+  border-top:1px solid #edf0ee;
+  border-bottom:1px solid #edf0ee;
+}
+
+.theme-projects:not(.service-page) #technik{
+  background:#eef1ef;
+  border-top:1px solid #dfe5e1;
+  border-bottom:1px solid #dfe5e1;
+}
+
+.theme-projects:not(.service-page) #team{
+  background:#f7f4ec;
+  border-top:1px solid #ebe4d5;
+}
+
+.theme-projects:not(.service-page) #kontakt{
+  background:#172026;
+}
+
+/* Karten leicht vom jeweiligen Hintergrund lösen */
+.theme-projects:not(.service-page) #leistungen .service-card,
+.theme-projects:not(.service-page) #technik .equip-card{
+  box-shadow:0 10px 30px rgba(20,32,38,.07);
+}
+
+.theme-projects:not(.service-page) #team .portrait{
+  box-shadow:0 18px 48px rgba(16,30,38,.12);
+}
