@@ -203,6 +203,46 @@
       .drag-hint{display:none}
       .status-btn{padding:8px 10px}
     }
+    .create-btn{background:var(--yellow);border-color:#d1b124;color:#24271f;cursor:pointer}
+    .create-btn:hover{background:#efd451;border-color:#c9aa20}
+    .modal-backdrop{
+      position:fixed;inset:0;z-index:100;background:rgba(13,20,24,.52);
+      backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;padding:20px
+    }
+    .modal-backdrop.open{display:flex}
+    .modal{
+      width:min(620px,100%);max-height:min(760px,calc(100vh - 40px));overflow:auto;
+      background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:0 28px 90px rgba(15,25,30,.24)
+    }
+    .modal-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;padding:24px 26px 18px;border-bottom:1px solid var(--line)}
+    .modal-head h3{margin:0 0 4px;font-size:1.3rem}
+    .modal-head p{margin:0;color:var(--muted);font-size:.82rem}
+    .modal-close{border:0;background:#f0f2f1;width:36px;height:36px;border-radius:50%;font-size:1.15rem;cursor:pointer}
+    .ticket-form{padding:22px 26px 26px}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+    .form-field{display:grid;gap:7px;margin-bottom:15px}
+    .form-field.full{grid-column:1/-1}
+    .form-field label{font-size:.76rem;font-weight:850;color:#536067}
+    .form-field input,.form-field textarea,.form-field select{
+      width:100%;border:1px solid #cfd7d4;border-radius:11px;padding:12px 13px;background:#fbfcfb;
+      color:var(--ink);outline:none;font:inherit
+    }
+    .form-field textarea{min-height:105px;resize:vertical}
+    .form-field input:focus,.form-field textarea:focus,.form-field select:focus{
+      border-color:#c7a923;box-shadow:0 0 0 3px rgba(229,197,51,.17)
+    }
+    .modal-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:5px}
+    .ticket-create{border:0;background:var(--yellow);color:#1d211d;padding:11px 16px;border-radius:999px;font-weight:900;cursor:pointer}
+    .ticket-cancel{border:1px solid var(--line);background:#fff;color:#556268;padding:11px 16px;border-radius:999px;font-weight:800;cursor:pointer}
+    .delete-ticket{margin-left:auto;border-color:#f0cece!important;color:#9b4545!important;background:#fff5f5!important}
+    .custom-flag{background:#eeeaf9;color:#605080}
+    @media(max-width:700px){
+      .form-grid{grid-template-columns:1fr}
+      .modal{border-radius:18px}
+      .ticket-form{padding:18px}
+      .modal-head{padding:20px 18px 15px}
+      .progress-wrap{display:none}
+    }
 
   </style>
 </head>
@@ -219,6 +259,7 @@
     <div class="header-actions">
       <a class="btn beta" href="../index.html">← Beta-Website</a>
       <div class="progress-wrap"><span id="progressText">0 / 8 erledigt</span><div class="progress-bar"><span id="progressBar"></span></div></div>
+      <button class="btn create-btn" id="openTicketModal" type="button">+ Ticket erstellen</button>
       <button class="btn reset-btn" id="resetBoard" type="button">Zurücksetzen</button>
       <a class="btn" href="https://github.com/SebMut/Smartwerk-Presentation/tree/main/gudelius/03-projekte-beta" target="_blank" rel="noopener">GitHub öffnen ↗</a>
     </div>
@@ -368,28 +409,158 @@
   </div>
 </main>
 
+
+<div class="modal-backdrop" id="ticketModal" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="ticketModalTitle">
+    <div class="modal-head">
+      <div>
+        <h3 id="ticketModalTitle">Neues Ticket erstellen</h3>
+        <p>Das Ticket wird in diesem Browser gespeichert und kann danach frei verschoben werden.</p>
+      </div>
+      <button class="modal-close" id="closeTicketModal" type="button" aria-label="Schließen">×</button>
+    </div>
+    <form class="ticket-form" id="ticketForm">
+      <div class="form-grid">
+        <div class="form-field full">
+          <label for="ticketTitle">Titel *</label>
+          <input id="ticketTitle" required maxlength="120" placeholder="z. B. Referenzprojekt ergänzen">
+        </div>
+        <div class="form-field full">
+          <label for="ticketDescription">Beschreibung</label>
+          <textarea id="ticketDescription" maxlength="800" placeholder="Was ist zu tun?"></textarea>
+        </div>
+        <div class="form-field">
+          <label for="ticketOwner">Verantwortlich</label>
+          <select id="ticketOwner">
+            <option value="Basti">Basti</option>
+            <option value="Jost">Jost</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="ticketStatus">Status</label>
+          <select id="ticketStatus">
+            <option value="open">Offen</option>
+            <option value="doing">In Arbeit</option>
+            <option value="waiting">Wartet</option>
+            <option value="done">Erledigt</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="ticketDue">Fällig am</label>
+          <input id="ticketDue" type="date">
+        </div>
+        <div class="form-field">
+          <label for="ticketCategory">Kategorie</label>
+          <input id="ticketCategory" maxlength="40" placeholder="z. B. Startseite">
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="ticket-cancel" id="cancelTicket" type="button">Abbrechen</button>
+        <button class="ticket-create" type="submit">Ticket erstellen</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <footer>
   <div class="wrap">Interne Projektübersicht · GudeliusVermessung · Version 3 Beta</div>
 </footer>
 
 <script>
 (() => {
-  const STORAGE_KEY = 'gudelius-kanban-v3-beta';
+  const STATE_KEY = 'gudelius-kanban-v3-beta';
+  const CUSTOM_KEY = 'gudelius-kanban-v3-beta-custom';
   const board = document.getElementById('kanbanBoard');
   const columns = [...board.querySelectorAll('.column')];
-  const dropzones = [...board.querySelectorAll('[data-dropzone]')];
   const resetButton = document.getElementById('resetBoard');
   const progressText = document.getElementById('progressText');
   const progressBar = document.getElementById('progressBar');
+  const modal = document.getElementById('ticketModal');
+  const openModalButton = document.getElementById('openTicketModal');
+  const closeModalButton = document.getElementById('closeTicketModal');
+  const cancelTicketButton = document.getElementById('cancelTicket');
+  const ticketForm = document.getElementById('ticketForm');
   let draggedCard = null;
 
-  const defaultState = {};
+  const builtInDefaults = {};
   board.querySelectorAll('.card').forEach((card, index) => {
-    defaultState[card.dataset.taskId] = {
+    builtInDefaults[card.dataset.taskId] = {
       status: card.closest('.column').dataset.status,
       order: index
     };
   });
+
+  function escapeHtml(value = '') {
+    return String(value).replace(/[&<>"']/g, ch => ({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'
+    })[ch]);
+  }
+
+  function formatDate(value) {
+    if (!value) return '';
+    const [y,m,d] = value.split('-');
+    return d + '.' + m + '.' + y;
+  }
+
+  function ownerClass(owner) {
+    return owner === 'Jost' ? 'jost' : 'basti';
+  }
+
+  function actionButtons() {
+    return `
+      <div class="card-actions">
+        <button class="status-btn" data-action="open" type="button">↩ Offen</button>
+        <button class="status-btn doing" data-action="doing" type="button">▶ In Arbeit</button>
+        <button class="status-btn waiting" data-action="waiting" type="button">⏸ Warten</button>
+        <button class="status-btn done" data-action="done" type="button">✓ Erledigt</button>
+        <button class="status-btn delete-ticket" data-delete-ticket type="button">Löschen</button>
+      </div>`;
+  }
+
+  function createCustomCard(ticket) {
+    const card = document.createElement('article');
+    card.className = 'card';
+    card.draggable = true;
+    card.dataset.taskId = ticket.id;
+    card.dataset.state = ticket.status || 'open';
+    card.dataset.custom = 'true';
+    card.innerHTML = `
+      <div class="card-top">
+        <span class="nr">${escapeHtml(ticket.number)}</span>
+        <span class="owner ${ownerClass(ticket.owner)}">${escapeHtml(ticket.owner)}</span>
+      </div>
+      <h4>${escapeHtml(ticket.title)}</h4>
+      ${ticket.description ? '<p>' + escapeHtml(ticket.description) + '</p>' : ''}
+      <div class="meta">
+        <span class="chip custom-flag">Eigenes Ticket</span>
+        ${ticket.due ? '<span class="chip due">Fällig: ' + formatDate(ticket.due) + '</span>' : ''}
+        ${ticket.category ? '<span class="chip">' + escapeHtml(ticket.category) + '</span>' : ''}
+      </div>
+      ${actionButtons()}
+    `;
+    return card;
+  }
+
+  function getCustomTickets() {
+    try {
+      return JSON.parse(localStorage.getItem(CUSTOM_KEY) || '[]');
+    } catch {
+      return [];
+    }
+  }
+
+  function saveCustomTickets(tickets) {
+    localStorage.setItem(CUSTOM_KEY, JSON.stringify(tickets));
+  }
+
+  function loadCustomTickets() {
+    getCustomTickets().forEach(ticket => {
+      const target = board.querySelector('[data-dropzone="' + (ticket.status || 'open') + '"]');
+      if (target && !board.querySelector('.card[data-task-id="' + CSS.escape(ticket.id) + '"]')) {
+        target.appendChild(createCustomCard(ticket));
+      }
+    });
+  }
 
   function setActiveButtons(card) {
     card.querySelectorAll('[data-action]').forEach(btn => {
@@ -399,8 +570,7 @@
 
   function updateCounts() {
     columns.forEach(column => {
-      const count = column.querySelectorAll('.card').length;
-      column.querySelector('.count').textContent = count;
+      column.querySelector('.count').textContent = column.querySelectorAll('.card').length;
     });
     const total = board.querySelectorAll('.card').length;
     const done = board.querySelectorAll('.column[data-status="done"] .card').length;
@@ -408,17 +578,26 @@
     progressBar.style.width = total ? ((done / total) * 100) + '%' : '0%';
   }
 
+  function updateCustomTicketState(id, status) {
+    const tickets = getCustomTickets();
+    const ticket = tickets.find(t => t.id === id);
+    if (ticket) {
+      ticket.status = status;
+      saveCustomTickets(tickets);
+    }
+  }
+
   function saveBoard() {
     const state = {};
     columns.forEach(column => {
       [...column.querySelectorAll('.card')].forEach((card, order) => {
-        state[card.dataset.taskId] = {
-          status: column.dataset.status,
-          order
-        };
+        state[card.dataset.taskId] = { status: column.dataset.status, order };
+        if (card.dataset.custom === 'true') {
+          updateCustomTicketState(card.dataset.taskId, column.dataset.status);
+        }
       });
     });
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    localStorage.setItem(STATE_KEY, JSON.stringify(state));
     updateCounts();
   }
 
@@ -428,50 +607,118 @@
     target.appendChild(card);
     card.dataset.state = status;
     setActiveButtons(card);
+    if (card.dataset.custom === 'true') updateCustomTicketState(card.dataset.taskId, status);
     if (save) saveBoard();
   }
 
   function restoreBoard() {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (!saved) {
-      board.querySelectorAll('.card').forEach(setActiveButtons);
-      updateCounts();
-      return;
-    }
-    try {
-      const state = JSON.parse(saved);
-      Object.entries(state)
-        .sort((a, b) => (a[1].order ?? 0) - (b[1].order ?? 0))
-        .forEach(([id, data]) => {
-          const card = board.querySelector('.card[data-task-id="' + CSS.escape(id) + '"]');
-          if (card) moveCard(card, data.status, false);
+    const saved = localStorage.getItem(STATE_KEY);
+    if (saved) {
+      try {
+        const state = JSON.parse(saved);
+        const grouped = {};
+        Object.entries(state).forEach(([id, data]) => {
+          (grouped[data.status] ||= []).push([id, data]);
         });
-    } catch (e) {
-      console.warn('Kanban-Status konnte nicht geladen werden.', e);
+        Object.entries(grouped).forEach(([status, entries]) => {
+          entries
+            .sort((a,b) => (a[1].order ?? 0) - (b[1].order ?? 0))
+            .forEach(([id]) => {
+              const card = board.querySelector('.card[data-task-id="' + CSS.escape(id) + '"]');
+              if (card) moveCard(card, status, false);
+            });
+        });
+      } catch (e) {
+        console.warn('Kanban-Status konnte nicht geladen werden.', e);
+      }
     }
+    board.querySelectorAll('.card').forEach(setActiveButtons);
     updateCounts();
   }
 
+  function openModal() {
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden','false');
+    setTimeout(() => document.getElementById('ticketTitle').focus(), 50);
+  }
+
+  function closeModal() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden','true');
+    ticketForm.reset();
+  }
+
+  function nextTicketNumber() {
+    const tickets = getCustomTickets();
+    const nums = tickets
+      .map(t => Number(String(t.number || '').replace(/\D/g,'')))
+      .filter(Number.isFinite);
+    const next = nums.length ? Math.max(...nums) + 1 : 1;
+    return 'T-' + String(next).padStart(3,'0');
+  }
+
+  openModalButton.addEventListener('click', openModal);
+  closeModalButton.addEventListener('click', closeModal);
+  cancelTicketButton.addEventListener('click', closeModal);
+  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+
+  ticketForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const ticket = {
+      id: 'custom-' + Date.now(),
+      number: nextTicketNumber(),
+      title: document.getElementById('ticketTitle').value.trim(),
+      description: document.getElementById('ticketDescription').value.trim(),
+      owner: document.getElementById('ticketOwner').value,
+      status: document.getElementById('ticketStatus').value,
+      due: document.getElementById('ticketDue').value,
+      category: document.getElementById('ticketCategory').value.trim()
+    };
+    if (!ticket.title) return;
+    const tickets = getCustomTickets();
+    tickets.push(ticket);
+    saveCustomTickets(tickets);
+    const card = createCustomCard(ticket);
+    board.querySelector('[data-dropzone="' + ticket.status + '"]').appendChild(card);
+    setActiveButtons(card);
+    saveBoard();
+    closeModal();
+  });
+
   board.addEventListener('click', e => {
+    const deleteBtn = e.target.closest('[data-delete-ticket]');
+    if (deleteBtn) {
+      const card = deleteBtn.closest('.card');
+      if (!confirm('Dieses Ticket wirklich löschen?')) return;
+      const tickets = getCustomTickets().filter(t => t.id !== card.dataset.taskId);
+      saveCustomTickets(tickets);
+      card.remove();
+      saveBoard();
+      return;
+    }
+
     const button = e.target.closest('[data-action]');
     if (!button) return;
     const card = button.closest('.card');
     moveCard(card, button.dataset.action);
   });
 
-  board.querySelectorAll('.card').forEach(card => {
-    card.addEventListener('dragstart', e => {
-      draggedCard = card;
-      card.classList.add('dragging');
-      e.dataTransfer.effectAllowed = 'move';
-      e.dataTransfer.setData('text/plain', card.dataset.taskId);
-    });
-    card.addEventListener('dragend', () => {
-      card.classList.remove('dragging');
-      columns.forEach(c => c.classList.remove('drag-over'));
-      draggedCard = null;
-      saveBoard();
-    });
+  board.addEventListener('dragstart', e => {
+    const card = e.target.closest('.card');
+    if (!card) return;
+    draggedCard = card;
+    card.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', card.dataset.taskId);
+  });
+
+  board.addEventListener('dragend', e => {
+    const card = e.target.closest('.card');
+    if (card) card.classList.remove('dragging');
+    columns.forEach(c => c.classList.remove('drag-over'));
+    draggedCard = null;
+    saveBoard();
   });
 
   columns.forEach(column => {
@@ -487,26 +734,26 @@
       e.preventDefault();
       column.classList.remove('drag-over');
       if (!draggedCard) return;
-      const status = column.dataset.status;
-      column.querySelector('.cards').appendChild(draggedCard);
-      draggedCard.dataset.state = status;
-      setActiveButtons(draggedCard);
-      saveBoard();
+      moveCard(draggedCard, column.dataset.status);
     });
   });
 
   resetButton.addEventListener('click', () => {
-    if (!confirm('Kanban wirklich auf den Ausgangszustand zurücksetzen?')) return;
-    localStorage.removeItem(STORAGE_KEY);
-    Object.entries(defaultState)
+    if (!confirm('Kanban komplett zurücksetzen? Dabei werden auch selbst erstellte Tickets gelöscht.')) return;
+    localStorage.removeItem(STATE_KEY);
+    localStorage.removeItem(CUSTOM_KEY);
+    board.querySelectorAll('.card[data-custom="true"]').forEach(card => card.remove());
+    Object.entries(builtInDefaults)
       .sort((a,b) => a[1].order - b[1].order)
       .forEach(([id, data]) => {
         const card = board.querySelector('.card[data-task-id="' + CSS.escape(id) + '"]');
         if (card) moveCard(card, data.status, false);
       });
+    board.querySelectorAll('.card').forEach(setActiveButtons);
     updateCounts();
   });
 
+  loadCustomTickets();
   restoreBoard();
 })();
 </script>
