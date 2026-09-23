@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - ".github/workflows/gudelius-kanban-labels.yml"
+  issues:
+    types: [opened]
   workflow_dispatch:
 
 permissions:
@@ -14,7 +16,7 @@ jobs:
   labels:
     runs-on: ubuntu-latest
     steps:
-      - name: Ensure Kanban labels exist
+      - name: Ensure Kanban labels and apply issue metadata
         uses: actions/github-script@v7
         with:
           script: |
@@ -35,14 +37,6 @@ jobs:
                   repo: context.repo.repo,
                   name: label.name
                 });
-                await github.rest.issues.updateLabel({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  name: label.name,
-                  new_name: label.name,
-                  color: label.color,
-                  description: label.description
-                });
               } catch (error) {
                 if (error.status === 404) {
                   await github.rest.issues.createLabel({
@@ -56,4 +50,25 @@ jobs:
                   throw error;
                 }
               }
+            }
+
+            if (context.eventName === "issues" && context.payload.issue) {
+              const body = context.payload.issue.body || "";
+              const issueNumber = context.payload.issue.number;
+              const add = ["gudelius-beta"];
+
+              if (/Status:\s*Wartet/i.test(body)) add.push("status: wartet");
+              else if (/Status:\s*In Arbeit/i.test(body)) add.push("status: in-arbeit");
+              else if (/Status:\s*Erledigt/i.test(body)) add.push("status: erledigt");
+              else add.push("status: offen");
+
+              if (/Verantwortlich:\s*Jost/i.test(body)) add.push("verantwortlich: jost");
+              if (/Verantwortlich:\s*Basti/i.test(body)) add.push("verantwortlich: basti");
+
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                labels: add
+              });
             }
