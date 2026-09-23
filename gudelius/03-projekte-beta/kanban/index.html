@@ -167,6 +167,43 @@
       .board{grid-template-columns:1fr}
       .column{min-height:auto}
     }
+  
+    .board{grid-template-columns:repeat(4,minmax(260px,1fr))}
+    .column{transition:.2s ease}
+    .column.drag-over{background:#e6eadf;border-color:#c3ae35;box-shadow:inset 0 0 0 2px rgba(229,197,51,.28)}
+    .cards{min-height:120px}
+    .card{cursor:grab;transition:opacity .18s,transform .18s,box-shadow .18s}
+    .card:active{cursor:grabbing}
+    .card.dragging{opacity:.38;transform:rotate(1deg) scale(.98)}
+    .card[data-state="done"]{opacity:.7;background:#f3f8f4}
+    .card[data-state="done"] h4{text-decoration:line-through;color:#718078}
+    .card[data-state="doing"]{border-left:4px solid #4f8fb0}
+    .card[data-state="waiting"]{border-left:4px solid #d7a64a}
+    .card-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:13px}
+    .status-btn{
+      appearance:none;border:1px solid var(--line);background:#fff;color:#566267;
+      border-radius:9px;padding:7px 9px;font-size:.68rem;font-weight:850;
+      cursor:pointer;transition:.15s ease;
+    }
+    .status-btn:hover{border-color:#aeb9b5;transform:translateY(-1px)}
+    .status-btn.doing{background:#edf6fb;color:#37677e;border-color:#c9e0eb}
+    .status-btn.waiting{background:#fff4e1;color:#79571d;border-color:#efd9aa}
+    .status-btn.done{background:#eaf6ee;color:#356146;border-color:#c8e1d0}
+    .status-btn.active{box-shadow:inset 0 0 0 2px currentColor}
+    .drag-hint{font-size:.72rem;color:#8a9498;margin:5px 3px 0}
+    .reset-btn{cursor:pointer}
+    .progress-wrap{
+      display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);
+      padding:9px 12px;border-radius:999px;font-size:.75rem;font-weight:800;color:#657176
+    }
+    .progress-bar{width:90px;height:7px;border-radius:999px;background:#e7ebe9;overflow:hidden}
+    .progress-bar span{display:block;height:100%;width:0;background:var(--yellow);transition:.25s}
+    @media(max-width:700px){
+      .card{cursor:default}
+      .drag-hint{display:none}
+      .status-btn{padding:8px 10px}
+    }
+
   </style>
 </head>
 <body>
@@ -181,6 +218,8 @@
     </div>
     <div class="header-actions">
       <a class="btn beta" href="../index.html">← Beta-Website</a>
+      <div class="progress-wrap"><span id="progressText">0 / 8 erledigt</span><div class="progress-bar"><span id="progressBar"></span></div></div>
+      <button class="btn reset-btn" id="resetBoard" type="button">Zurücksetzen</button>
       <a class="btn" href="https://github.com/SebMut/Smartwerk-Presentation/tree/main/gudelius/03-projekte-beta" target="_blank" rel="noopener">GitHub öffnen ↗</a>
     </div>
   </div>
@@ -199,129 +238,131 @@
       </div>
     </section>
 
-    <section class="board">
-      <div class="column">
-        <div class="column-head">
-          <h3>Bis 03.10.2026</h3>
-          <span class="count">2</span>
-        </div>
-        <div class="cards">
-          <article class="card">
-            <div class="card-top">
-              <span class="nr">01</span>
-              <span class="owner jost">Jost</span>
-            </div>
-            <h4>Bilder zusammensuchen</h4>
-            <p>Jost stellt die Bilder zusammen, die auf der neuen Website verwendet werden sollen.</p>
-            <div class="meta">
-              <span class="chip due">Fällig: 03.10.2026</span>
-              <span class="chip">Bilder</span>
-            </div>
-          </article>
 
-          <article class="card">
-            <div class="card-top">
-              <span class="nr">02</span>
-              <span class="owner basti">Basti</span>
-            </div>
+    <section class="board" id="kanbanBoard">
+      <div class="column" data-status="open">
+        <div class="column-head">
+          <h3>Offen</h3>
+          <span class="count">0</span>
+        </div>
+        <div class="cards" data-dropzone="open">
+          <article class="card" draggable="true" data-task-id="02" data-state="open">
+            <div class="card-top"><span class="nr">02</span><span class="owner basti">Basti</span></div>
             <h4>Leistungs-Unterseiten erstellen</h4>
-            <p>Bis dahin entstehen die Unterseiten für Ingenieurvermessung, GIS & Bauvermessung, 3D-Laserscanning und Drohnenvermessung.</p>
-            <div class="meta">
-              <span class="chip due">Ziel: 03.10.2026</span>
-              <span class="chip">Unterseiten</span>
+            <p>Unterseiten für Ingenieurvermessung, GIS & Bauvermessung, 3D-Laserscanning und Drohnenvermessung erstellen.</p>
+            <div class="meta"><span class="chip due">Ziel: 03.10.2026</span><span class="chip">Unterseiten</span></div>
+            <div class="card-actions">
+              <button class="status-btn doing" data-action="doing" type="button">▶ In Arbeit</button>
+              <button class="status-btn waiting" data-action="waiting" type="button">⏸ Warten</button>
+              <button class="status-btn done" data-action="done" type="button">✓ Erledigt</button>
             </div>
           </article>
-        </div>
-      </div>
 
-      <div class="column">
-        <div class="column-head">
-          <h3>Website-Struktur</h3>
-          <span class="count">2</span>
-        </div>
-        <div class="cards">
-          <article class="card">
-            <div class="card-top">
-              <span class="nr">03</span>
-              <span class="owner struktur">Basti</span>
-            </div>
+          <article class="card" draggable="true" data-task-id="03" data-state="open">
+            <div class="card-top"><span class="nr">03</span><span class="owner struktur">Basti</span></div>
             <h4>Leistungsfelder nach oben</h4>
             <p>Den Bereich „Leistungsfelder“ auf der Startseite weiter nach oben verschieben, damit Leistungen früher sichtbar werden.</p>
             <div class="meta"><span class="chip">Startseite</span><span class="chip">Priorität hoch</span></div>
+            <div class="card-actions">
+              <button class="status-btn doing" data-action="doing" type="button">▶ In Arbeit</button>
+              <button class="status-btn waiting" data-action="waiting" type="button">⏸ Warten</button>
+              <button class="status-btn done" data-action="done" type="button">✓ Erledigt</button>
+            </div>
           </article>
 
-          <article class="card">
-            <div class="card-top">
-              <span class="nr">04</span>
-              <span class="owner struktur">Basti</span>
-            </div>
+          <article class="card" draggable="true" data-task-id="04" data-state="open">
+            <div class="card-top"><span class="nr">04</span><span class="owner struktur">Basti</span></div>
             <h4>„Arbeit, die man sehen kann.“ nach unten</h4>
             <p>Den Projekt-/Bildbereich auf der Startseite weiter nach unten verschieben.</p>
             <div class="meta"><span class="chip">Startseite</span><span class="chip">Reihenfolge</span></div>
-          </article>
-        </div>
-      </div>
-
-      <div class="column">
-        <div class="column-head">
-          <h3>Wartet auf Jost</h3>
-          <span class="count">2</span>
-        </div>
-        <div class="cards">
-          <div class="group-label">05 · Ausstattung</div>
-          <article class="card">
-            <div class="card-top">
-              <span class="nr">05.1</span>
-              <span class="owner jost">Jost</span>
+            <div class="card-actions">
+              <button class="status-btn doing" data-action="doing" type="button">▶ In Arbeit</button>
+              <button class="status-btn waiting" data-action="waiting" type="button">⏸ Warten</button>
+              <button class="status-btn done" data-action="done" type="button">✓ Erledigt</button>
             </div>
-            <h4>Komplette Ausstattung auflisten</h4>
-            <p>Jost liefert eine vollständige Liste der Geräte, Software und weiteren Ausstattung.</p>
-            <div class="meta"><span class="chip">Ausstattung</span><span class="chip">Zulieferung</span></div>
           </article>
 
-          <div class="group-label">06 · Impressum</div>
-          <article class="card">
-            <div class="card-top">
-              <span class="nr">06.1</span>
-              <span class="owner jost">Jost</span>
-            </div>
-            <h4>Richtige Impressumsdaten schicken</h4>
-            <p>Jost liefert die korrekten und vollständigen Daten für das Impressum.</p>
-            <div class="meta"><span class="chip">Rechtliches</span><span class="chip">Zulieferung</span></div>
-          </article>
-        </div>
-      </div>
-
-      <div class="column">
-        <div class="column-head">
-          <h3>Danach durch Basti</h3>
-          <span class="count">2</span>
-        </div>
-        <div class="cards">
-          <div class="group-label">05 · Ausstattung</div>
-          <article class="card">
-            <div class="card-top">
-              <span class="nr">05.2</span>
-              <span class="owner basti">Basti</span>
-            </div>
+          <article class="card" draggable="true" data-task-id="05.2" data-state="open">
+            <div class="card-top"><span class="nr">05.2</span><span class="owner basti">Basti</span></div>
             <h4>Ausstattungs-Popup mit Bildern bauen</h4>
             <p>Nach der Liste von Jost wird der Ausstattungsbereich als Popup-/Detailansicht mit den Bildern von Jost umgesetzt.</p>
             <div class="dependency">Abhängigkeit: erst nach Aufgabe 05.1</div>
             <div class="meta"><span class="chip">Popup</span><span class="chip">Bilder</span></div>
+            <div class="card-actions">
+              <button class="status-btn doing" data-action="doing" type="button">▶ In Arbeit</button>
+              <button class="status-btn waiting" data-action="waiting" type="button">⏸ Warten</button>
+              <button class="status-btn done" data-action="done" type="button">✓ Erledigt</button>
+            </div>
           </article>
 
-          <div class="group-label">06 · Impressum</div>
-          <article class="card">
-            <div class="card-top">
-              <span class="nr">06.2</span>
-              <span class="owner basti">Basti</span>
-            </div>
+          <article class="card" draggable="true" data-task-id="06.2" data-state="open">
+            <div class="card-top"><span class="nr">06.2</span><span class="owner basti">Basti</span></div>
             <h4>Impressumsseite erstellen</h4>
             <p>Aus den von Jost gelieferten Daten wird eine eigene Impressums-Unterseite erstellt und verlinkt.</p>
             <div class="dependency">Abhängigkeit: erst nach Aufgabe 06.1</div>
             <div class="meta"><span class="chip">Unterseite</span><span class="chip">Impressum</span></div>
+            <div class="card-actions">
+              <button class="status-btn doing" data-action="doing" type="button">▶ In Arbeit</button>
+              <button class="status-btn waiting" data-action="waiting" type="button">⏸ Warten</button>
+              <button class="status-btn done" data-action="done" type="button">✓ Erledigt</button>
+            </div>
           </article>
         </div>
+        <div class="drag-hint">Kacheln hierher ziehen oder Status wählen.</div>
+      </div>
+
+      <div class="column" data-status="doing">
+        <div class="column-head"><h3>In Arbeit</h3><span class="count">0</span></div>
+        <div class="cards" data-dropzone="doing"></div>
+        <div class="drag-hint">Aktiv bearbeitete Aufgaben.</div>
+      </div>
+
+      <div class="column" data-status="waiting">
+        <div class="column-head"><h3>Wartet</h3><span class="count">0</span></div>
+        <div class="cards" data-dropzone="waiting">
+          <article class="card" draggable="true" data-task-id="01" data-state="waiting">
+            <div class="card-top"><span class="nr">01</span><span class="owner jost">Jost</span></div>
+            <h4>Bilder zusammensuchen</h4>
+            <p>Jost stellt die Bilder zusammen, die auf der neuen Website verwendet werden sollen.</p>
+            <div class="meta"><span class="chip due">Fällig: 03.10.2026</span><span class="chip">Bilder</span></div>
+            <div class="card-actions">
+              <button class="status-btn doing" data-action="doing" type="button">▶ In Arbeit</button>
+              <button class="status-btn done" data-action="done" type="button">✓ Erledigt</button>
+              <button class="status-btn" data-action="open" type="button">↩ Offen</button>
+            </div>
+          </article>
+
+          <article class="card" draggable="true" data-task-id="05.1" data-state="waiting">
+            <div class="card-top"><span class="nr">05.1</span><span class="owner jost">Jost</span></div>
+            <h4>Komplette Ausstattung auflisten</h4>
+            <p>Jost liefert eine vollständige Liste der Geräte, Software und weiteren Ausstattung.</p>
+            <div class="meta"><span class="chip">Ausstattung</span><span class="chip">Zulieferung</span></div>
+            <div class="card-actions">
+              <button class="status-btn doing" data-action="doing" type="button">▶ In Arbeit</button>
+              <button class="status-btn done" data-action="done" type="button">✓ Erledigt</button>
+              <button class="status-btn" data-action="open" type="button">↩ Offen</button>
+            </div>
+          </article>
+
+          <article class="card" draggable="true" data-task-id="06.1" data-state="waiting">
+            <div class="card-top"><span class="nr">06.1</span><span class="owner jost">Jost</span></div>
+            <h4>Richtige Impressumsdaten schicken</h4>
+            <p>Jost liefert die korrekten und vollständigen Daten für das Impressum.</p>
+            <div class="meta"><span class="chip">Rechtliches</span><span class="chip">Zulieferung</span></div>
+            <div class="card-actions">
+              <button class="status-btn doing" data-action="doing" type="button">▶ In Arbeit</button>
+              <button class="status-btn done" data-action="done" type="button">✓ Erledigt</button>
+              <button class="status-btn" data-action="open" type="button">↩ Offen</button>
+            </div>
+          </article>
+        </div>
+        <div class="drag-hint">Externe Zuarbeit oder Abhängigkeiten.</div>
+      </div>
+
+      <div class="column" data-status="done">
+        <div class="column-head"><h3>Erledigt</h3><span class="count">0</span></div>
+        <div class="cards" data-dropzone="done"></div>
+        <div class="drag-hint">Abgeschlossene Aufgaben.</div>
       </div>
     </section>
   </div>
@@ -330,5 +371,145 @@
 <footer>
   <div class="wrap">Interne Projektübersicht · GudeliusVermessung · Version 3 Beta</div>
 </footer>
+
+<script>
+(() => {
+  const STORAGE_KEY = 'gudelius-kanban-v3-beta';
+  const board = document.getElementById('kanbanBoard');
+  const columns = [...board.querySelectorAll('.column')];
+  const dropzones = [...board.querySelectorAll('[data-dropzone]')];
+  const resetButton = document.getElementById('resetBoard');
+  const progressText = document.getElementById('progressText');
+  const progressBar = document.getElementById('progressBar');
+  let draggedCard = null;
+
+  const defaultState = {};
+  board.querySelectorAll('.card').forEach((card, index) => {
+    defaultState[card.dataset.taskId] = {
+      status: card.closest('.column').dataset.status,
+      order: index
+    };
+  });
+
+  function setActiveButtons(card) {
+    card.querySelectorAll('[data-action]').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.action === card.dataset.state);
+    });
+  }
+
+  function updateCounts() {
+    columns.forEach(column => {
+      const count = column.querySelectorAll('.card').length;
+      column.querySelector('.count').textContent = count;
+    });
+    const total = board.querySelectorAll('.card').length;
+    const done = board.querySelectorAll('.column[data-status="done"] .card').length;
+    progressText.textContent = done + ' / ' + total + ' erledigt';
+    progressBar.style.width = total ? ((done / total) * 100) + '%' : '0%';
+  }
+
+  function saveBoard() {
+    const state = {};
+    columns.forEach(column => {
+      [...column.querySelectorAll('.card')].forEach((card, order) => {
+        state[card.dataset.taskId] = {
+          status: column.dataset.status,
+          order
+        };
+      });
+    });
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    updateCounts();
+  }
+
+  function moveCard(card, status, save = true) {
+    const target = board.querySelector('[data-dropzone="' + status + '"]');
+    if (!target) return;
+    target.appendChild(card);
+    card.dataset.state = status;
+    setActiveButtons(card);
+    if (save) saveBoard();
+  }
+
+  function restoreBoard() {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (!saved) {
+      board.querySelectorAll('.card').forEach(setActiveButtons);
+      updateCounts();
+      return;
+    }
+    try {
+      const state = JSON.parse(saved);
+      Object.entries(state)
+        .sort((a, b) => (a[1].order ?? 0) - (b[1].order ?? 0))
+        .forEach(([id, data]) => {
+          const card = board.querySelector('.card[data-task-id="' + CSS.escape(id) + '"]');
+          if (card) moveCard(card, data.status, false);
+        });
+    } catch (e) {
+      console.warn('Kanban-Status konnte nicht geladen werden.', e);
+    }
+    updateCounts();
+  }
+
+  board.addEventListener('click', e => {
+    const button = e.target.closest('[data-action]');
+    if (!button) return;
+    const card = button.closest('.card');
+    moveCard(card, button.dataset.action);
+  });
+
+  board.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('dragstart', e => {
+      draggedCard = card;
+      card.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/plain', card.dataset.taskId);
+    });
+    card.addEventListener('dragend', () => {
+      card.classList.remove('dragging');
+      columns.forEach(c => c.classList.remove('drag-over'));
+      draggedCard = null;
+      saveBoard();
+    });
+  });
+
+  columns.forEach(column => {
+    column.addEventListener('dragover', e => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      column.classList.add('drag-over');
+    });
+    column.addEventListener('dragleave', e => {
+      if (!column.contains(e.relatedTarget)) column.classList.remove('drag-over');
+    });
+    column.addEventListener('drop', e => {
+      e.preventDefault();
+      column.classList.remove('drag-over');
+      if (!draggedCard) return;
+      const status = column.dataset.status;
+      column.querySelector('.cards').appendChild(draggedCard);
+      draggedCard.dataset.state = status;
+      setActiveButtons(draggedCard);
+      saveBoard();
+    });
+  });
+
+  resetButton.addEventListener('click', () => {
+    if (!confirm('Kanban wirklich auf den Ausgangszustand zurücksetzen?')) return;
+    localStorage.removeItem(STORAGE_KEY);
+    Object.entries(defaultState)
+      .sort((a,b) => a[1].order - b[1].order)
+      .forEach(([id, data]) => {
+        const card = board.querySelector('.card[data-task-id="' + CSS.escape(id) + '"]');
+        if (card) moveCard(card, data.status, false);
+      });
+    updateCounts();
+  });
+
+  restoreBoard();
+})();
+</script>
+
 </body>
 </html>
