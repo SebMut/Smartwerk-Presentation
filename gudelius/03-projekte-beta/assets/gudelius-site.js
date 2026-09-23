@@ -60,37 +60,38 @@ document.addEventListener('DOMContentLoaded', () => {
     aussendienst: {
       kicker: 'Außendienst',
       title: 'Präzise Messtechnik vor Ort.',
-      lead: 'Für Absteckung, Kontrolle, Bestandsaufnahme und klassische Vermessungsaufgaben stehen unterschiedliche Messsysteme zur Verfügung.',
-      summary: 'Jedes Gerät erhält später sein eigenes Originalfoto. Hier siehst du bereits die Wirkung mit vier unterschiedlichen Platzhalterbildern.',
+      lead: 'Die Außendienst-Ausstattung folgt der Technikliste der aktuellen Gudelius-Seite. Hersteller- und Produktbilder dienen in der Beta nur als vorläufige Bildmotive.',
+      summary: 'Die eigenen Gerätefotos von Jost ersetzen später diese Hersteller-/Produktbilder eins zu eins.',
       devices: [
-        { name:'Trimble SX12', detail:'Totalstation & Scanning', image:'assets/equipment-trimble-sx12.svg' },
-        { name:'Trimble S6', detail:'Robotik-Totalstation', image:'assets/equipment-trimble-s6.svg' },
-        { name:'Trimble R2 GNSS', detail:'Satellitenpositionierung', image:'assets/equipment-trimble-r2.svg' },
-        { name:'Trimble DINI 07', detail:'Digitalnivellement', image:'assets/equipment-trimble-dini07.svg' }
+        { name:'Trimble SX12', detail:'Scanning-Totalstation', image:'https://images.ctfassets.net/1nvkn1423yot/7bouK6GUtWnVuxunCfxZML/4bd3307e16c06e17b898f32965eec7db/geo-sx12-productpage-fullbackgroundproducthero-800x960.png', source:'https://geospatial.trimble.com/de/products/hardware/trimble-sx12', sourceLabel:'Trimble' },
+        { name:'Trimble S6', detail:'Robotik-Totalstation', image:'assets/equipment-trimble-s6.svg', source:'https://help.fieldsystems.trimble.com/trimble-access/latest/de/equipment-supported.htm', sourceLabel:'Trimble · S6 Support' },
+        { name:'Trimble R2 GNSS-Empfänger', detail:'GNSS-Positionierung', image:'https://www.allnav.com/wp-content/uploads/2020/04/R2_4.jpg', source:'https://www.allnav.com/produkte/gnss-systeme/r2/', sourceLabel:'Trimble-Partner ALLNAV' },
+        { name:'Trimble DiNi 07 Ingenieurnivellier', detail:'Digitalnivellement', image:'https://images.ctfassets.net/1nvkn1423yot/64MgxNSI4ha3AwrJajbI1D/bc2639be1307bec5571be1197bd07a1b/geo-dinilevel-productpage-fullbackgroundproducthero-800x960.png', source:'https://geospatial.trimble.com/de/products/hardware/trimble-dini-level', sourceLabel:'Trimble' }
       ]
     },
     digital: {
       kicker: '3D & Drohne',
       title: 'Digitale Erfassung aus Boden und Luft.',
-      lead: '3D-Laserscanning und drohnengestützte Aufnahme ergänzen die klassische Vermessung bei komplexen Beständen und größeren Flächen.',
-      summary: 'Die unterschiedlichen Bildwelten zeigen später Scanner, Drohne, Kamera und Auswertung jeweils als eigenes Motiv.',
+      lead: 'Laserscanning, RTK-Drohne, Wärmebild und photogrammetrische Auswertung bilden den digitalen Technikblock.',
+      summary: 'TX8 und die Drohnenbilder werden später durch die tatsächlich verwendeten Geräteaufnahmen ersetzt.',
       devices: [
-        { name:'Trimble TX8', detail:'3D-Laserscanner', image:'assets/equipment-trimble-tx8.svg' },
-        { name:'RTK-Drohne', detail:'Luftbild & Vermessung', image:'assets/equipment-rtk-drohne.svg' },
-        { name:'Infrarotkamera', detail:'Thermische Bildaufnahme', image:'assets/equipment-infrarotkamera.svg' },
-        { name:'Photogrammetrie', detail:'Digitale Bildauswertung', image:'assets/equipment-photogrammetrie.svg' }
+        { name:'Trimble TX8 3D-Laserscanner', detail:'Terrestrisches 3D-Laserscanning', image:'assets/equipment-trimble-tx8.svg', source:'https://geospatial.trimble.com/de/support/discontinued-products-technical-support', sourceLabel:'Trimble · TX8 Support' },
+        { name:'RTK-Drohne', detail:'Vermessung & Orthophoto', image:'https://www1.djicdn.com/cms/uploads/3185f8d17b7211aad1a326f604fc0022.png', source:'https://enterprise.dji.com/news/detail/matrice-4-series-release', sourceLabel:'DJI Enterprise · Platzhalter' },
+        { name:'RTK-Drohne mit Infrarotkamera', detail:'Thermische Bildaufnahme', image:'https://www1.djicdn.com/cms/uploads/6a4fe5870d86bb43d58dcc1f364895da.png', source:'https://enterprise.dji.com/news/detail/matrice-4-series-release', sourceLabel:'DJI Enterprise · Platzhalter' },
+        { name:'Punktwolken & Photogrammetrie', detail:'Workflow / Ergebnisdarstellung', image:'https://www.agisoft.com/images/cloud-try-now.png', source:'https://www.agisoft.com/', sourceLabel:'Agisoft · Platzhalter' }
       ]
     },
     software: {
-      kicker: 'Programme & mobil',
-      title: 'Auswertung dort, wo die Daten gebraucht werden.',
-      lead: 'Messdaten werden mit passenden CAD-, Punktwolken- und Photogrammetrie-Werkzeugen ausgewertet und für die weitere Projektbearbeitung aufbereitet.',
-      summary: 'Auch Software und mobiler Workflow bekommen getrennte Bildmotive, damit die Karten nicht wie eine wiederholte Bildserie wirken.',
+      kicker: 'Programme & Arbeitsplatz',
+      title: 'Auswertung und Datenaufbereitung.',
+      lead: 'CAD, Tiefbauplanung, Punktwolken und Photogrammetrie werden mit den auf der Originalseite genannten Programmen abgedeckt.',
+      summary: 'Bei Software zeigen die Platzhalter Hersteller- bzw. Produktmotive. Der mobile Büroarbeitsplatz bleibt als eigener visueller Eintrag erhalten.',
       devices: [
-        { name:'BricsCAD', detail:'CAD-Bearbeitung', image:'assets/equipment-bricscad.svg' },
-        { name:'BBSOFT', detail:'Vermessung & Auswertung', image:'assets/equipment-bbsoft.svg' },
-        { name:'Trimble RealWorks', detail:'Punktwolken-Auswertung', image:'assets/equipment-realworks.svg' },
-        { name:'Agisoft Metashape', detail:'Photogrammetrie', image:'assets/equipment-metashape.svg' }
+        { name:'BricsCAD', detail:'CAD-Bearbeitung', image:'https://www.bbsoft.de/assets/logo/extern/octave_weiss.webp', source:'https://bricscad.octave.com/de', sourceLabel:'Octave / BricsCAD' },
+        { name:'BBSOFT', detail:'Tiefbau, Vermessung & DGM', image:'https://www.bbsoft.de/assets/images/uberuns/bbsoft-planung-computer.webp', source:'https://www.bbsoft.de/', sourceLabel:'BBSoft' },
+        { name:'Trimble RealWorks', detail:'Punktwolken-Auswertung', image:'https://images.ctfassets.net/citn2sn5tdjr/2qHLMpxFWko4vex8bZItdi/f3295ad93a3fd7aaaa384a895ab3e13e/trimble-realworks-pipes-office-laptop-2880x1440.jpg?f=right&fit=fill&fm=webp&h=810&q=85&w=1920', source:'https://www.trimble.com/de/products/building-construction-field-systems/trimble-realworks', sourceLabel:'Trimble' },
+        { name:'Agisoft Metashape', detail:'Photogrammetrie', image:'https://www.agisoft.com/images/cloud-try-now.png', source:'https://www.agisoft.com/', sourceLabel:'Agisoft' },
+        { name:'Mobiler Büroarbeitsplatz', detail:'Auswertung direkt im Projektumfeld', image:'https://static.wixstatic.com/media/bdad94_b3c3899c62854fc2af846e55db7be150~mv2.jpg/v1/fill/w_980%2Ch_321%2Cal_c%2Cq_80%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto/bdad94_b3c3899c62854fc2af846e55db7be150~mv2.jpg', source:'https://www.gudeliusvermessung.de/', sourceLabel:'GudeliusVermessung' }
       ]
     }
   };
@@ -109,6 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="equipment-device-copy">
             <strong>${device.name}</strong>
             <span>${device.detail}</span>
+            <a class="equipment-source" href="${device.source}" target="_blank" rel="noopener">Bildquelle: ${device.sourceLabel} ↗</a>
           </div>
         </article>
       `)
