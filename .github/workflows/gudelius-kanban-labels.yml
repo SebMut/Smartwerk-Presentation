@@ -1,0 +1,59 @@
+name: Gudelius Kanban Labels
+
+on:
+  push:
+    paths:
+      - ".github/workflows/gudelius-kanban-labels.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  labels:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ensure Kanban labels exist
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const labels = [
+              { name: "status: offen", color: "D4C44D", description: "Noch nicht begonnen" },
+              { name: "status: in-arbeit", color: "4F8FB0", description: "Aktiv in Bearbeitung" },
+              { name: "status: wartet", color: "D7A64A", description: "Wartet auf Zuarbeit oder Abhängigkeit" },
+              { name: "status: erledigt", color: "5A9A6A", description: "Abgeschlossen" },
+              { name: "verantwortlich: basti", color: "8BC49A", description: "Verantwortlich: Basti" },
+              { name: "verantwortlich: jost", color: "8FB5C7", description: "Verantwortlich: Jost" },
+              { name: "gudelius-beta", color: "E5C533", description: "Gudelius Version 3 Beta" }
+            ];
+
+            for (const label of labels) {
+              try {
+                await github.rest.issues.getLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  name: label.name
+                });
+                await github.rest.issues.updateLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  name: label.name,
+                  new_name: label.name,
+                  color: label.color,
+                  description: label.description
+                });
+              } catch (error) {
+                if (error.status === 404) {
+                  await github.rest.issues.createLabel({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    name: label.name,
+                    color: label.color,
+                    description: label.description
+                  });
+                } else {
+                  throw error;
+                }
+              }
+            }
