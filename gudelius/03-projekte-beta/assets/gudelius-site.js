@@ -1,4 +1,27 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const lazyBackgrounds = document.querySelectorAll('.lazy-bg[data-bg]');
+
+  const loadBackground = (element) => {
+    if (!element?.dataset?.bg) return;
+    element.style.backgroundImage = `url("${element.dataset.bg}")`;
+    element.removeAttribute('data-bg');
+    element.classList.remove('lazy-bg');
+  };
+
+  if ('IntersectionObserver' in window) {
+    const backgroundObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        loadBackground(entry.target);
+        observer.unobserve(entry.target);
+      });
+    }, { rootMargin: '300px 0px' });
+
+    lazyBackgrounds.forEach((element) => backgroundObserver.observe(element));
+  } else {
+    lazyBackgrounds.forEach(loadBackground);
+  }
+
   const menuBtn = document.getElementById('menuBtn');
   const navlinks = document.getElementById('navlinks');
   const dropdowns = document.querySelectorAll('.nav-dropdown');
@@ -106,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
     equipmentGallery.innerHTML = data.devices
       .map((device) => `
         <article class="equipment-device-card">
-          <img src="${device.image}" alt="${device.name} Platzhalterbild">
+          <img src="${device.image}" alt="${device.name} Platzhalterbild" loading="lazy" decoding="async" fetchpriority="low">
           <div class="equipment-device-copy">
             <strong>${device.name}</strong>
             <span>${device.detail}</span>
