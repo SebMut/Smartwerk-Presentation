@@ -303,3 +303,35 @@
   .flyover-item:hover{background:rgba(0,0,0,.035)!important;transform:none}
   .flyover-copy small{color:var(--muted)}
 }
+
+
+/* Flyover-Fix: auf allen Beta-Seiten am gesamten Header ausrichten */
+@media(min-width:1001px){
+  header,
+  header .container,
+  header nav,
+  header .navlinks{
+    overflow:visible!important;
+  }
+
+  header{isolation:isolate}
+
+  .nav-dropdown{
+    position:static!important;
+  }
+
+  .nav-flyover{
+    position:absolute!important;
+    top:100%!important;
+    left:50%!important;
+    right:auto!important;
+    z-index:9999!important;
+    width:min(760px,calc(100vw - 36px))!important;
+    transform:translate(-50%,10px)!important;
+  }
+
+  .nav-dropdown:hover .nav-flyover,
+  .nav-dropdown:focus-within .nav-flyover{
+    transform:translate(-50%,0)!important;
+  }
+}
